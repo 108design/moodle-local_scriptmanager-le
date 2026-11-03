@@ -521,3 +521,6 @@ body:is(#page-local-scriptmanager-scripts,#page-local-scriptmanager-libraries,#p
 :is(body[id^="page-local-scriptmanager-"], body[id^="page-admin-local-scriptmanager-"]) .local-scriptmanager-script-library-table > thead > tr > th { white-space: nowrap; word-break: normal; overflow-wrap: normal; }
 
 :is(body[id^="page-local-scriptmanager-"], body[id^="page-admin-local-scriptmanager-"]) .btn-outline-secondary:not(:disabled, .disabled) { border-width: 1px !important; border-style: solid !important; }
+
+/* Keep hidden action labels inside their scrolling table cell. */
+.local-scriptmanager-icon-button,.local-scriptmanager-editor-actions .shared-table-actionbar-toggle {position:relative;}
