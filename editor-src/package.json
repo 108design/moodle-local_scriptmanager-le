@@ -1,0 +1,14 @@
+{
+  "name": "script-manager-editor",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "codemirror": "6.0.2",
+    "@codemirror/state": "6.7.1",
+    "@codemirror/lang-javascript": "6.2.5",
+    "esbuild": "0.28.1"
+  }
+}

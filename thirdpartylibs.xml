@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<libraries>
+  <library>
+    <location>amd/build/source_editor.min.js</location>
+    <name>CodeMirror 6 source-editor bundle</name>
+    <version>6.0.2</version>
+    <license>MIT</license>
+    <licenseversion></licenseversion>
+  </library>
+</libraries>

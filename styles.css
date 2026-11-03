@@ -1,0 +1,523 @@
+:root {
+    /* Shared 108design UI foundation. Moodle/Bootstrap semantic variables still
+       take precedence where a component belongs to the active theme. */
+    --local-108design-accent: oklch(29.944% 0.07773 294.90);
+    --local-108design-accent-soft: oklch(84% 0.055 300);
+    --local-108design-border-strong: oklch(70.980% 0.02729 261.12);
+    --local-108design-on-accent: oklch(100% 0 0);
+    --local-108design-surface-muted: oklch(88.034% 0.01778 320.06);
+    --local-108design-surface-muted-hover: color-mix(
+        in oklch,
+        var(--local-108design-surface-muted) 90%,
+        var(--local-108design-accent)
+    );
+}
+
+.local-scriptmanager-ms-1 {
+    margin-inline-start: .25rem !important;
+}
+
+.local-scriptmanager-gap-3 {
+    gap: 1rem !important;
+}
+
+.path-local-scriptmanager .sr-only,
+.path-admin-local-scriptmanager .sr-only {
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    white-space: nowrap !important;
+    width: 1px !important;
+}
+
+.local-scriptmanager-content-narrow {
+    max-width: 72rem;
+}
+
+.local-scriptmanager-content-reading {
+    max-width: 58rem;
+}
+
+.local-scriptmanager-page-header {
+    min-height: 2.25rem;
+}
+
+.local-scriptmanager-settings-row {
+    border-top: 1px solid var(--bs-border-color, #dee2e6);
+    padding-block: 1.5rem;
+}
+
+.local-scriptmanager-settings-row:first-child {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.local-scriptmanager-setting-label {
+    max-width: 28rem;
+}
+
+.local-scriptmanager-actionbar {
+    align-items: center;
+    background: #fff;
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-radius: .375rem;
+    display: inline-flex;
+    gap: .125rem;
+    padding: .125rem;
+}
+
+.local-scriptmanager-editor-actions {
+    align-items: center;
+    display: flex;
+    gap: .125rem;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.local-scriptmanager-icon-button {
+    align-items: center;
+    appearance: none;
+    background: transparent !important;
+    border: 0;
+    border-radius: .25rem;
+    box-shadow: none !important;
+    color: var(--bs-body-color, #212529);
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    line-height: 1;
+    min-height: 1.75rem;
+    min-width: 1.75rem;
+    padding: .25rem;
+    text-decoration: none;
+}
+
+.local-scriptmanager-icon-button:hover,
+.local-scriptmanager-icon-button:focus-visible {
+    color: var(--bs-primary, #0d6efd);
+}
+
+.local-scriptmanager-icon-button .icon {
+    height: 1rem;
+    margin: 0;
+    width: 1rem;
+}
+
+.local-scriptmanager-action-danger:hover .icon,
+.local-scriptmanager-action-danger:focus-visible .icon {
+    color: var(--bs-danger, #dc3545);
+}
+
+.local-scriptmanager-state-enabled .icon {
+    color: var(--bs-success, #198754);
+}
+
+.local-scriptmanager-state-disabled .icon {
+    color: var(--bs-danger, #dc3545);
+}
+
+body[id^="page-local-scriptmanager-"] .local-scriptmanager-action-table > thead > tr > th:last-child,
+body[id^="page-local-scriptmanager-"] .local-scriptmanager-action-table > tbody > tr > td:last-child,
+body[id^="page-admin-local-scriptmanager-"] .local-scriptmanager-action-table > thead > tr > th:last-child,
+body[id^="page-admin-local-scriptmanager-"] .local-scriptmanager-action-table > tbody > tr > td:last-child {
+    text-align: right;
+}
+
+/* Script lists reserve one row for actions and let descriptions flex. */
+.local-scriptmanager-script-library-table > :is(thead, tbody) > tr > :first-child {
+    min-width: 13rem;
+}
+
+.local-scriptmanager-script-library-table > :is(thead, tbody) > tr > :nth-child(2) {
+    overflow-wrap: anywhere;
+    width: 100%;
+}
+
+.local-scriptmanager-script-library-table > :is(thead, tbody) > tr > :last-child {
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 1%;
+}
+
+.local-scriptmanager-script-library-table .local-scriptmanager-editor-actions {
+    width: max-content;
+}
+
+.local-scriptmanager-table-responsive {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+/* Only deliberately compact, cell-bordered tables use the muted header surface. */
+body[id^="page-local-scriptmanager-"] .local-scriptmanager-compact-table > thead > tr > th,
+body[id^="page-admin-local-scriptmanager-"] .local-scriptmanager-compact-table > thead > tr > th {
+    background-color: var(--local-108design-surface-muted);
+}
+
+.local-scriptmanager-compact-action-table > thead > tr > th:last-child,
+.local-scriptmanager-compact-action-table > tbody > tr > td:last-child {
+    text-align: center !important;
+}
+
+
+.local-scriptmanager-code-editor {
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-radius: .375rem;
+    overflow: hidden;
+}
+
+.local-scriptmanager-code-editor .cm-editor {
+    min-height: 20rem;
+}
+
+.local-scriptmanager-code-editor .cm-scroller {
+    overflow: auto;
+}
+
+
+
+
+
+
+
+.local-scriptmanager-readonly-code {
+    background: var(--bs-tertiary-bg, #f8f9fa);
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-radius: var(--bs-border-radius, .375rem);
+    max-height: 70vh;
+    overflow: auto;
+    padding: 1rem;
+    white-space: pre;
+}
+
+@media (max-width: 767.98px) {
+    .local-scriptmanager-setting-label {
+        margin-bottom: 1rem;
+    }
+}
+
+/* BEGIN shared search bar */
+/* Shared native search bar. Generated into each independent consumer's styles.css. */
+.local-plugin-search-bar {
+    container-type: inline-size;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-radius: .65rem;
+    background: var(--bs-tertiary-bg, #f8f9fa);
+}
+.local-plugin-search-bar-groups {
+    display: grid;
+    gap: 1.25rem;
+    align-items: start;
+}
+.local-plugin-search-bar-group { min-width: 0; margin: 0; padding: 0; border: 0; }
+.local-plugin-search-bar-group:only-child { grid-column: 1 / -1; }
+.local-plugin-search-bar-heading { float: none; width: auto; margin: 0 0 .75rem; font-size: .875rem; font-weight: 600; }
+.local-plugin-search-bar-fields { display: grid; gap: .75rem; align-items: start; }
+.local-plugin-search-bar-field { min-width: 0; }
+.local-plugin-search-bar-field > .form-label { display: block; margin-bottom: .375rem; }
+.local-plugin-search-bar-field :is(.form-control, .custom-select, .form-select) { width: 100%; }
+.local-plugin-search-bar-labelled-control { position: relative; }
+.local-plugin-search-bar-inset-label {
+    position: absolute;
+    z-index: 1;
+    inset-inline-start: .75rem;
+    top: .3rem;
+    max-width: calc(100% - 2.5rem);
+    margin: 0;
+    font-size: .7rem;
+    line-height: 1.2;
+    color: var(--bs-secondary-color, #555);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
+}
+.local-plugin-search-bar-field :is(input[type="search"], .custom-select, .form-select, .local-plugin-search-bar-tags > summary) {
+    height: 3.25rem;
+}
+.local-plugin-search-bar-labelled-control :is(select, .local-plugin-search-bar-tags > summary) {
+    padding-top: 1.25rem;
+    padding-bottom: .25rem;
+}
+.local-plugin-search-bar-chips { display: flex; flex-wrap: wrap; gap: .375rem; margin-top: .5rem; min-width: 0; }
+.local-plugin-search-bar-chips:empty { display: none; }
+.local-plugin-search-bar-chips .badge {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .375rem;
+    max-width: 100%;
+    padding: .375rem .5rem;
+    line-height: 1.3;
+    white-space: normal;
+    text-align: start;
+    background-color: var(--search-bar-chip-bg, var(--bs-body-bg, #fff));
+    color: var(--search-bar-chip-fg, var(--bs-body-color, #212529));
+    border: 1px solid var(--bs-border-color, #d1d5db);
+    border-radius: .375rem;
+}
+.local-plugin-search-bar-chips .badge:is(:hover, :focus-visible) {
+    background-color: var(--search-bar-chip-bg, var(--bs-secondary-bg, #e9ecef));
+    color: var(--search-bar-chip-fg, var(--bs-body-color, #212529));
+}
+.local-plugin-search-bar-chips .badge:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.local-plugin-search-bar-chip-label { min-width: 0; overflow-wrap: anywhere; }
+.local-plugin-search-bar-chip-remove { flex: none; }
+.local-plugin-search-bar-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.local-plugin-search-bar-actions:empty { display: none; }
+.local-plugin-search-bar-live [data-search-bar-submit] { display: none; }
+.local-plugin-search-bar [hidden] { display: none !important; }
+.local-plugin-search-bar-live .local-plugin-search-bar-actions:not(:has([data-search-bar-reset]:not([hidden]))) { display: none; }
+.local-plugin-search-bar-status:empty { display: none; }
+.local-plugin-search-bar-status { margin: .5rem 0; }
+.local-plugin-search-bar-tags { position: relative; }
+.local-plugin-search-bar-tags > summary { cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+.local-plugin-search-bar-tags > summary::after { content: ''; border: .3rem solid transparent; border-top-color: currentColor; transform: translateY(.15rem); }
+.local-plugin-search-bar-tags > summary::-webkit-details-marker { display: none; }
+.local-plugin-search-bar-tag-options {
+    position: absolute;
+    z-index: 5;
+    inset-inline-end: 0;
+    top: calc(100% + .25rem);
+    width: 20rem;
+    max-width: min(20rem, 100cqw);
+    max-height: 18rem;
+    overflow: auto;
+    padding: 1rem;
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-radius: .375rem;
+    background: var(--bs-body-bg, #fff);
+    color: var(--search-bar-chip-fg, var(--bs-body-color, #212529));
+    box-shadow: 0 .25rem .75rem rgb(0 0 0 / 12%);
+}
+.local-plugin-search-bar-tag-options label { display: flex; gap: .5rem; align-items: baseline; margin-bottom: .5rem; }
+.local-plugin-search-bar-tags > summary:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+@container (min-width: 30rem) {
+    .local-plugin-search-bar-filter .local-plugin-search-bar-fields,
+    .local-plugin-search-bar-display .local-plugin-search-bar-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@container (min-width: 58rem) {
+    .local-plugin-search-bar-groups { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+    .local-plugin-search-bar-search { grid-column: 1 / -1; }
+    .local-plugin-search-bar-search .local-plugin-search-bar-fields { max-width: 36rem; }
+}
+@container (min-width: 76rem) {
+    .local-plugin-search-bar-groups { grid-template-columns: minmax(13rem, 1.1fr) minmax(0, 4fr) minmax(0, 2fr); }
+    .local-plugin-search-bar-search { grid-column: auto; }
+    .local-plugin-search-bar-filter .local-plugin-search-bar-fields { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* Manager/picker bars have fewer groups than the four-facet catalogue. */
+.local-plugin-search-bar-chips .badge:is(:hover, :focus-visible) { box-shadow: inset 0 0 0 1px currentColor; }
+.local-plugin-search-bar-manager .local-plugin-search-bar-groups { grid-template-columns: minmax(0, 1fr); }
+.local-plugin-search-bar-manager .local-plugin-search-bar-search { grid-column: auto; }
+.local-plugin-search-bar-manager .local-plugin-search-bar-search .local-plugin-search-bar-fields { max-width: none; }
+.local-plugin-search-bar-manager .local-plugin-search-bar-filter .local-plugin-search-bar-fields,
+.local-plugin-search-bar-manager .local-plugin-search-bar-display .local-plugin-search-bar-fields {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+}
+@container (min-width: 48rem) {
+    .local-plugin-search-bar-manager .local-plugin-search-bar-groups:has(.local-plugin-search-bar-search):has(.local-plugin-search-bar-filter) {
+        grid-template-columns: minmax(14rem, 1fr) minmax(0, 2fr);
+    }
+}
+
+@container (min-width: 64rem) {
+    .local-plugin-search-bar-manager .local-plugin-search-bar-groups:has(.local-plugin-search-bar-search):has(.local-plugin-search-bar-filter):has(.local-plugin-search-bar-display) {
+        grid-template-columns: minmax(13rem, 1fr) minmax(0, 3fr) minmax(13rem, 1fr);
+    }
+}
+
+/* END shared search bar */
+
+/* BEGIN shared table actionbar */
+/* Shared responsive table action bars. Picker surfaces opt out in JavaScript. */
+.is-table-actionbar-stacked {
+    display: grid !important;
+    margin-inline-start: auto;
+    width: max-content !important;
+}
+
+.is-table-actionbar-stacked-four { grid-template-columns: repeat(2, 1.75rem); }
+.is-table-actionbar-stacked-five { grid-template-columns: repeat(3, 1.75rem); }
+
+.shared-table-actionbar-toggle {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    border-radius: .25rem;
+    color: inherit;
+    display: inline-flex;
+    flex: 0 0 1.75rem;
+    height: 1.75rem;
+    justify-content: center;
+    line-height: 1;
+    margin: 0;
+    min-height: 1.75rem;
+    min-width: 1.75rem;
+    padding: .25rem;
+    width: 1.75rem;
+}
+
+.shared-table-actionbar-toggle[hidden],
+.shared-table-actionbar-overflow[hidden],
+.shared-table-actionbar-portal[hidden] { display: none !important; }
+
+.shared-table-actionbar-toggle:is(:hover, :focus-visible) { background: rgb(49 36 80 / 10%); }
+.shared-table-actionbar-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
+.shared-table-actionbar-portal {
+    background: var(--bs-body-bg, #fff);
+    border: 1px solid var(--bs-border-color, #cac7d1);
+    border-radius: .5rem;
+    box-shadow: 0 .5rem 1.25rem rgb(31 24 48 / 18%);
+    color: var(--bs-body-color, #382e50);
+    display: flex;
+    flex-direction: column;
+    gap: .125rem;
+    min-width: 12rem;
+    padding: .375rem;
+    position: fixed;
+    z-index: 1085;
+}
+
+.shared-table-actionbar-portal .shared-table-actionbar-overflow {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+}
+
+.shared-table-actionbar-portal .shared-table-actionbar-overflow > :is(a, button, form, span) { width: 100%; }
+.shared-table-actionbar-portal .shared-table-actionbar-overflow form { margin: 0; }
+.shared-table-actionbar-portal .shared-table-actionbar-overflow :is(a, button) {
+    align-items: center;
+    display: flex;
+    gap: .625rem;
+    height: auto;
+    justify-content: flex-start;
+    min-height: 2.25rem;
+    padding: .375rem .625rem;
+    text-align: start;
+    width: 100%;
+}
+
+.shared-table-actionbar-portal .shared-table-actionbar-overflow :is(.sr-only, .visually-hidden) {
+    clip: auto !important;
+    clip-path: none !important;
+    height: auto !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    position: static !important;
+    white-space: normal !important;
+    width: auto !important;
+}
+
+/* END shared table actionbar */
+
+/* BEGIN shared table presentation */
+.cms-table-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    min-width: 1.5rem;
+    vertical-align: middle;
+}
+
+.cms-table-status .icon {
+    font-size: inherit;
+    height: auto;
+    margin: 0;
+    width: auto;
+}
+
+.cms-table-status:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+    border-radius: .2rem;
+}
+
+.local-frontpage-manager-badge {
+    display: inline-block;
+    max-width: 12ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.local-frontpage-manager-date {
+    white-space: nowrap;
+}
+
+/* Storefront's existing semantic badges remain labelled outside native tables. */
+.generaltable .local-storefront-table-status-source .local-storefront-status-badge {
+    background: transparent;
+    border: 0;
+    font-size: 1.25rem;
+    padding: 0 .15rem;
+}
+
+.generaltable .local-storefront-table-status-source .local-storefront-status-badge > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+.generaltable .local-storefront-table-status-source .icon { margin: 0; }
+/* Labelled badges use white icons; icon-only table statuses inherit their semantic colour. */
+.generaltable .local-storefront-table-status-source .local-storefront-status-badge .icon {
+    color: inherit !important;
+}
+.generaltable .local-storefront-table-status-source .badge-success { color: var(--bs-success, #287d3c) !important; }
+.generaltable .local-storefront-table-status-source .badge-warning { color: var(--bs-warning, #946700) !important; }
+.generaltable .local-storefront-table-status-source .badge-danger { color: var(--bs-danger, #b52b3b) !important; }
+.generaltable .local-storefront-table-status-source .badge-info { color: var(--bs-info, #087c92) !important; }
+.generaltable .local-storefront-table-status-source .badge-primary { color: var(--bs-primary, #0b62aa) !important; }
+.generaltable .local-storefront-table-status-source .badge-secondary { color: var(--bs-secondary, #6c757d) !important; }
+
+.local-storefront-table-status-source:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+    border-radius: .2rem;
+}
+/* END shared table presentation */
+
+/* Script-manager controls: stronger enabled outlines, native light neutral hover. */
+body:is(#page-local-scriptmanager-scripts,#page-local-scriptmanager-libraries,#page-local-scriptmanager-script_edit,#page-local-scriptmanager-script_history,#page-local-scriptmanager-library_edit,#page-local-scriptmanager-library_history,#page-admin-local-scriptmanager-scripts,#page-admin-local-scriptmanager-libraries,#page-admin-local-scriptmanager-script_edit,#page-admin-local-scriptmanager-script_history,#page-admin-local-scriptmanager-library_edit,#page-admin-local-scriptmanager-library_history) .btn-outline-secondary:not(:disabled, .disabled) { border-width: 1px !important; border-style: solid !important; border-color: var(--bs-primary, #312450) !important; color: var(--bs-primary, #312450) !important; }
+body:is(#page-local-scriptmanager-scripts,#page-local-scriptmanager-libraries,#page-local-scriptmanager-script_edit,#page-local-scriptmanager-script_history,#page-local-scriptmanager-library_edit,#page-local-scriptmanager-library_history,#page-admin-local-scriptmanager-scripts,#page-admin-local-scriptmanager-libraries,#page-admin-local-scriptmanager-script_edit,#page-admin-local-scriptmanager-script_history,#page-admin-local-scriptmanager-library_edit,#page-admin-local-scriptmanager-library_history) .btn-outline-secondary:not(:disabled, .disabled):is(:hover, :focus-visible) { background-color: var(--bs-secondary-bg, #e9ecef) !important; border-color: var(--bs-primary, #312450) !important; color: var(--bs-primary, #312450) !important; }
+body:is(#page-local-scriptmanager-scripts,#page-local-scriptmanager-libraries,#page-local-scriptmanager-script_edit,#page-local-scriptmanager-script_history,#page-local-scriptmanager-library_edit,#page-local-scriptmanager-library_history,#page-admin-local-scriptmanager-scripts,#page-admin-local-scriptmanager-libraries,#page-admin-local-scriptmanager-script_edit,#page-admin-local-scriptmanager-script_history,#page-admin-local-scriptmanager-library_edit,#page-admin-local-scriptmanager-library_history) .local-scriptmanager-page-header .local-scriptmanager-icon-button:has(.fa-plus) { border: 1px solid var(--bs-primary, #312450); }
+body:is(#page-local-scriptmanager-scripts,#page-local-scriptmanager-libraries,#page-local-scriptmanager-script_edit,#page-local-scriptmanager-script_history,#page-local-scriptmanager-library_edit,#page-local-scriptmanager-library_history,#page-admin-local-scriptmanager-scripts,#page-admin-local-scriptmanager-libraries,#page-admin-local-scriptmanager-script_edit,#page-admin-local-scriptmanager-script_history,#page-admin-local-scriptmanager-library_edit,#page-admin-local-scriptmanager-library_history) .local-scriptmanager-page-header .local-scriptmanager-icon-button:has(.fa-plus):is(:hover, :focus-visible) { background-color: var(--bs-secondary-bg, #e9ecef) !important; color: var(--bs-primary, #312450) !important; }
+.local-scriptmanager-script-diff-choice { flex: 0 1 15rem; min-width: 10rem; }
+.local-scriptmanager-script-diff-code { max-height: 32rem; overflow: auto; padding: 1rem; border: 1px solid var(--bs-border-color, #dee2e6); border-radius: .5rem; background: var(--bs-body-bg, #fff); color: var(--bs-body-color, #212529); font-size: .875rem; tab-size: 4; }
+.local-scriptmanager-diff-range { color: var(--bs-info-text-emphasis, #055160); }
+.local-scriptmanager-diff-add { color: var(--bs-success-text-emphasis, #0f5132); background-color: var(--bs-success-bg-subtle, #d1e7dd); }
+.local-scriptmanager-diff-remove { color: var(--bs-danger-text-emphasis, #842029); background-color: var(--bs-danger-bg-subtle, #f8d7da); }
+.local-scriptmanager-script-comparison { min-width: 0; }
+
+.local-scriptmanager-script-hashes code { overflow-wrap: anywhere; }
+
+.local-scriptmanager-script-change-summary { white-space: nowrap; }
+
+/* Manager table headings share the bottom baseline; action cells retain their own alignment. */
+:is(body[id^="page-local-scriptmanager-"], body[id^="page-admin-local-scriptmanager-"]) table.generaltable > thead > tr > th { vertical-align: bottom !important; }
+
+/* Readable text columns win over squeezing a table into the available space. */
+:is(body[id^="page-local-scriptmanager-"], body[id^="page-admin-local-scriptmanager-"]) .local-scriptmanager-script-library-table > :is(thead, tbody) > tr > :first-child { min-width: 11rem; }
+:is(body[id^="page-local-scriptmanager-"], body[id^="page-admin-local-scriptmanager-"]) .local-scriptmanager-script-library-table > :is(thead, tbody) > tr > :nth-child(2) {
+    min-width: 12rem;
+    word-break: normal;
+    overflow-wrap: break-word;
+}
+:is(body[id^="page-local-scriptmanager-"], body[id^="page-admin-local-scriptmanager-"]) .local-scriptmanager-script-library-table > thead > tr > th { white-space: nowrap; word-break: normal; overflow-wrap: normal; }
+
+:is(body[id^="page-local-scriptmanager-"], body[id^="page-admin-local-scriptmanager-"]) .btn-outline-secondary:not(:disabled, .disabled) { border-width: 1px !important; border-style: solid !important; }

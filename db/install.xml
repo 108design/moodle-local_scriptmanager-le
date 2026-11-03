@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/scriptmanager/db" VERSION="2026010100" COMMENT="XMLDB file for the local Script Manager">
+  <TABLES>
+    <TABLE NAME="local_scriptmgr_script" COMMENT="Managed JavaScript drafts and metadata">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true"/>
+        <FIELD NAME="identifier" TYPE="char" LENGTH="100" NOTNULL="true"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="globalenabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="dashboardenabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="sitehomeenabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="courseallowlist" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="coursedenylist" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="categoryallowlist" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="categorydenylist" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="dependenciesjson" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="draftrevisionnote" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="draftcode" TYPE="text" NOTNULL="true"/>
+        <FIELD NAME="draftversion" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1"/>
+        <FIELD NAME="publishedversionid" TYPE="int" LENGTH="10" NOTNULL="false"/>
+        <FIELD NAME="createdby" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="modifiedby" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true"/>
+      </FIELDS>
+      <KEYS><KEY NAME="primary" TYPE="primary" FIELDS="id"/></KEYS>
+      <INDEXES><INDEX NAME="identifier_uix" UNIQUE="true" FIELDS="identifier"/></INDEXES>
+    </TABLE>
+    <TABLE NAME="local_scriptmgr_scriptver" COMMENT="Immutable published JavaScript versions">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="scriptid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="versionnumber" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="code" TYPE="text" NOTNULL="true"/>
+        <FIELD NAME="globalenabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="dashboardenabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="sitehomeenabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="courseallowlist" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="coursedenylist" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="categoryallowlist" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="categorydenylist" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="dependenciesjson" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="revisionnote" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="publishedby" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="timepublished" TYPE="int" LENGTH="10" NOTNULL="true"/>
+      </FIELDS>
+      <KEYS><KEY NAME="primary" TYPE="primary" FIELDS="id"/><KEY NAME="script_fk" TYPE="foreign" FIELDS="scriptid" REFTABLE="local_scriptmgr_script" REFFIELDS="id"/></KEYS>
+      <INDEXES><INDEX NAME="script_version_uix" UNIQUE="true" FIELDS="scriptid,versionnumber"/></INDEXES>
+    </TABLE>
+    <TABLE NAME="local_scriptmgr_library" COMMENT="Reserved compatibility table">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/><FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true"/><FIELD NAME="identifier" TYPE="char" LENGTH="100" NOTNULL="true"/><FIELD NAME="description" TYPE="text" NOTNULL="false"/><FIELD NAME="libraryversion" TYPE="char" LENGTH="100" NOTNULL="false"/><FIELD NAME="licence" TYPE="char" LENGTH="255" NOTNULL="false"/><FIELD NAME="sourceurl" TYPE="text" NOTNULL="false"/><FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/><FIELD NAME="draftcode" TYPE="text" NOTNULL="true"/><FIELD NAME="publishedversionid" TYPE="int" LENGTH="10" NOTNULL="false"/><FIELD NAME="createdby" TYPE="int" LENGTH="10" NOTNULL="true"/><FIELD NAME="modifiedby" TYPE="int" LENGTH="10" NOTNULL="true"/><FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/><FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true"/>
+      </FIELDS><KEYS><KEY NAME="primary" TYPE="primary" FIELDS="id"/></KEYS><INDEXES><INDEX NAME="identifier_uix" UNIQUE="true" FIELDS="identifier"/></INDEXES>
+    </TABLE>
+    <TABLE NAME="local_scriptmgr_libver" COMMENT="Reserved compatibility version table">
+      <FIELDS><FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/><FIELD NAME="libraryid" TYPE="int" LENGTH="10" NOTNULL="true"/><FIELD NAME="versionnumber" TYPE="int" LENGTH="10" NOTNULL="true"/><FIELD NAME="libraryversion" TYPE="char" LENGTH="100" NOTNULL="false"/><FIELD NAME="code" TYPE="text" NOTNULL="true"/><FIELD NAME="contenthash" TYPE="char" LENGTH="64" NOTNULL="true"/><FIELD NAME="publishedby" TYPE="int" LENGTH="10" NOTNULL="true"/><FIELD NAME="timepublished" TYPE="int" LENGTH="10" NOTNULL="true"/></FIELDS>
+      <KEYS><KEY NAME="primary" TYPE="primary" FIELDS="id"/><KEY NAME="library_fk" TYPE="foreign" FIELDS="libraryid" REFTABLE="local_scriptmgr_library" REFFIELDS="id"/></KEYS><INDEXES><INDEX NAME="library_version_uix" UNIQUE="true" FIELDS="libraryid,versionnumber"/></INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
