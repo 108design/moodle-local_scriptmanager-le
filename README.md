@@ -12,4 +12,4 @@ Scripts run with each visitor’s browser permissions and can access the page an
 
 Concurrent editors use the last saved draft; there is no optimistic draft conflict check.
 
-The included functions are Free Features under Section 2 of LICENSE.md and require no external activation. The 108design source-available licence, its Moodle Marketplace permission and third-party CodeMirror notices apply.
+The included functions are available without payment or activation under LICENSE.md. The 108design source-available licence, its Moodle Marketplace permission and third-party CodeMirror notices apply.
