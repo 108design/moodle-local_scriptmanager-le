@@ -46,9 +46,9 @@ final class ui {
         ]);
     }
 
-    public static function icon_post_action(\moodle_url $url, string $label, string $icon): string {
+    public static function icon_post_action(\moodle_url $url, string $label, string $icon, string $classes = ''): string {
         $button = \html_writer::tag('button', self::icon($icon) . \html_writer::span($label, 'sr-only'), [
-            'type' => 'submit', 'class' => 'local-scriptmanager-icon-button', 'aria-label' => $label,
+            'type' => 'submit', 'class' => trim('local-scriptmanager-icon-button ' . $classes), 'aria-label' => $label,
             'title' => $label, 'data-toggle' => 'tooltip', 'data-placement' => 'top',
         ]);
         return \html_writer::tag('form',

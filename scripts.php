@@ -80,6 +80,7 @@ if (!$scripts) {
         $actions = [ui::icon_action($editurl,
             get_string('edit'), 't/edit')];
         $togglelabel = get_string($script->enabled ? 'deactivatescript' : 'activatescript', 'local_scriptmanager');
+        $toggleclass = $script->enabled ? 'local-scriptmanager-state-enabled' : 'local-scriptmanager-state-disabled';
         {
             $actions[] = ui::icon_post_action(new moodle_url('/local/scriptmanager/script_publish.php', [
                 'id' => $script->id, 'sesskey' => sesskey(),
@@ -88,7 +89,7 @@ if (!$scripts) {
                 get_string('revisions', 'local_scriptmanager'), 'i/restore');
             $actions[] = ui::icon_post_action(new moodle_url('/local/scriptmanager/script_toggle.php', [
                 'id' => $script->id, 'enabled' => $script->enabled ? 0 : 1, 'sesskey' => sesskey(),
-            ]), $togglelabel, $script->enabled ? 't/hide' : 't/show');
+            ]), $togglelabel, $script->enabled ? 't/hide' : 't/show', $toggleclass);
             $deletemodalid = 'local-scriptmanager-delete-script-' . $script->id;
             $actions[] = ui::icon_modal_action($deletemodalid, get_string('delete'), 't/delete',
                 'local-scriptmanager-action-danger');
