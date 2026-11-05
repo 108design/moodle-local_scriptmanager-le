@@ -1,16 +1,12 @@
 <?php
 /**
- * This file is part of a 108design source-available software product.
- *
- * Use and modification are permitted only under the Software License included
- * with this distribution. See LICENSE.md for the full terms.
- *
- * File documentation for tests/privacy_provider_test.php.
+ * Regression tests for privacy provider.
  *
  * @package   local_scriptmanager
  * @copyright 2026 Andreas Giesen <andreas@108design.com>
  * @license   108design source-available software license; see LICENSE.md
  */
+
 namespace local_scriptmanager;
 
 defined('MOODLE_INTERNAL') || die();
@@ -20,8 +16,15 @@ use core_privacy\local\request\userlist;
 use core_privacy\local\request\writer;
 use local_scriptmanager\privacy\provider;
 
-/** Functional coverage for Script Manager data export, discovery and attribution erasure. */
+/**
+ * Functional coverage for Script Manager data export, discovery and attribution erasure.
+ */
 final class privacy_provider_test extends \advanced_testcase {
+    /**
+     * Verify that shared script is exported then preserved with anonymised attribution.
+     *
+     * @return void
+     */
     public function test_shared_script_is_exported_then_preserved_with_anonymised_attribution(): void {
         global $DB;
         $this->resetAfterTest();
@@ -36,8 +39,10 @@ final class privacy_provider_test extends \advanced_testcase {
             'createdby' => $creator->id, 'modifiedby' => $editor->id,
             'timecreated' => $now, 'timemodified' => $now,
         ]);
-        $this->assertEquals([(int) $context->id], array_map('intval',
-            provider::get_contexts_for_userid($creator->id)->get_contextids()));
+        $this->assertEquals([(int) $context->id], array_map(
+            'intval',
+            provider::get_contexts_for_userid($creator->id)->get_contextids()
+        ));
         $users = new userlist($context, 'local_scriptmanager');
         provider::get_users_in_context($users);
         $this->assertEqualsCanonicalizing([$creator->id, $editor->id], $users->get_userids());
@@ -51,7 +56,8 @@ final class privacy_provider_test extends \advanced_testcase {
         $this->assertSame('createdby', $data->user_relations);
         $this->assertObjectNotHasProperty('modifiedby', $data);
         provider::delete_data_for_user(
-            new approved_contextlist($creator, 'local_scriptmanager', [$context->id]));
+            new approved_contextlist($creator, 'local_scriptmanager', [$context->id])
+        );
         $record = $DB->get_record('local_scriptmgr_script', ['id' => $id], '*', MUST_EXIST);
         $this->assertSame(0, (int) $record->createdby);
         $this->assertSame((int) $editor->id, (int) $record->modifiedby);

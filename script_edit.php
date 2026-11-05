@@ -1,14 +1,15 @@
 <?php
 /**
- * File documentation for script_edit.php.
+ * Edit a managed script draft and publish it explicitly.
  *
  * @package   local_scriptmanager
  * @copyright 2026 Andreas Giesen <andreas@108design.com>
  * @license   108design source-available software license; see LICENSE.md
  */
+
 // This file is part of a 108design source-available software product.
 //
-// Copyright (C) 2026 Andreas Giesen <andreas@108design.com>
+// Copyright (C) 2026 Andreas Giesen <andreas@108design.com>.
 //
 // Use and modification are permitted only under the Software License included
 // with this distribution. See LICENSE.md for the full terms.
@@ -33,30 +34,43 @@ $repository = factory::script_repository();
 $script = $id ? $repository->get($id) : (object) [
     'id' => 0, 'name' => '', 'identifier' => '', 'description' => '', 'enabled' => 0,
     'draftrevisionnote' => '',
-    'draftcode' => "// context.root is the current document root.\n// context.pageType, courseId and categoryId identify the Moodle context.\n",
+    'draftcode' => "// context.root is the current document root.\n"
+        . "// context.pageType, courseId and categoryId identify the Moodle context.\n",
+
 ];
-$PAGE->set_context($context); $PAGE->set_url($url); $PAGE->set_pagelayout('admin');
+$PAGE->set_context($context);
+$PAGE->set_url($url);
+$PAGE->set_pagelayout('admin');
 $PAGE->set_title(get_string($id ? 'editscript' : 'createscript', 'local_scriptmanager'));
 $PAGE->set_heading(get_string('pluginname', 'local_scriptmanager'));
 $terminal = get_string($id ? 'editscript' : 'createscript', 'local_scriptmanager');
 $PAGE->navbar->add($id ? format_string($script->name) : $terminal);
 $form = new script_form($url, ['restoredversion' => $restoredversion]);
 $form->set_data($script);
-if ($form->is_cancelled()) { redirect(new moodle_url('/local/scriptmanager/scripts.php')); }
+if ($form->is_cancelled()) {
+    redirect(new moodle_url('/local/scriptmanager/scripts.php'));
+}
 if ($data = $form->get_data()) {
     $identifier = strtolower(trim((string) $data->identifier));
     if ($repository->identifier_exists($identifier, (int) $data->id)) {
-        redirect($url, get_string('scriptidentifierexists', 'local_scriptmanager'), null,
-            \core\output\notification::NOTIFY_ERROR);
+        redirect(
+            $url,
+            get_string('scriptidentifierexists', 'local_scriptmanager'),
+            null,
+            \core\output\notification::NOTIFY_ERROR
+        );
     }
     $record = (object) ['id' => (int) $data->id, 'name' => trim($data->name), 'identifier' => $identifier,
         'description' => trim((string) $data->description), 'enabled' => (int) $data->enabled,
         'draftrevisionnote' => trim((string) $data->draftrevisionnote),
         'draftcode' => (string) $data->draftcode];
     $repository->save($record, !empty($data->savepublish), (int) $USER->id);
-    redirect(new moodle_url('/local/scriptmanager/scripts.php'),
+    redirect(
+        new moodle_url('/local/scriptmanager/scripts.php'),
         get_string(!empty($data->savepublish) ? 'scriptpublishedsaved' : 'scriptdraftsaved', 'local_scriptmanager'),
-        null, \core\output\notification::NOTIFY_SUCCESS);
+        null,
+        \core\output\notification::NOTIFY_SUCCESS
+    );
 }
 $PAGE->requires->js_call_amd('local_scriptmanager/source_editor', 'init', [[
     'textareaId' => 'id_draftcode', 'language' => 'javascript',

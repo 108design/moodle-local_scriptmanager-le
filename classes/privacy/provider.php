@@ -1,11 +1,12 @@
 <?php
 /**
- * File documentation for classes/privacy/provider.php.
+ * Privacy provider for shared scripts and revisions and their administrator attribution.
  *
  * @package   local_scriptmanager
  * @copyright 2026 Andreas Giesen <andreas@108design.com>
  * @license   108design source-available software license; see LICENSE.md
  */
+
 // This file is part of a 108design source-available software product.
 namespace local_scriptmanager\privacy;
 
@@ -19,11 +20,16 @@ use core_privacy\local\request\transform;
 use core_privacy\local\request\userlist;
 use core_privacy\local\request\writer;
 
-/** Privacy provider for shared scripts and revisions and their administrator attribution. */
+/**
+ * Privacy provider for shared scripts and revisions and their administrator attribution.
+ */
 final class provider implements
-        \core_privacy\local\metadata\provider,
-        \core_privacy\local\request\core_userlist_provider,
-        \core_privacy\local\request\plugin\provider {
+    \core_privacy\local\metadata\provider,
+    \core_privacy\local\request\core_userlist_provider,
+    \core_privacy\local\request\plugin\provider {
+    /**
+     * Component.
+     */
     private const COMPONENT = 'local_scriptmanager';
 
     /** @var array<string, array<int, string>> */
@@ -32,6 +38,12 @@ final class provider implements
         'local_scriptmgr_scriptver' => ['publishedby'],
     ];
 
+    /**
+     * Describe the personal data stored by this component.
+     *
+     * @param collection $collection Privacy metadata collection.
+     * @return collection
+     */
     public static function get_metadata(collection $collection): collection {
         $collection->add_database_table('local_scriptmgr_script', [
             'name' => 'privacy:metadata:name', 'description' => 'privacy:metadata:description',
@@ -45,6 +57,12 @@ final class provider implements
         return $collection;
     }
 
+    /**
+     * Find contexts containing records attributed to the user.
+     *
+     * @param int $userid User ID.
+     * @return contextlist
+     */
     public static function get_contexts_for_userid(int $userid): contextlist {
         global $DB;
         $contexts = new contextlist();
@@ -57,6 +75,12 @@ final class provider implements
         return $contexts;
     }
 
+    /**
+     * Export the records and files allowed by the approved user context list.
+     *
+     * @param approved_contextlist $contextlist Approved user and context selection.
+     * @return void
+     */
     public static function export_user_data(approved_contextlist $contextlist): void {
         global $DB;
         $context = context_system::instance();
@@ -75,6 +99,12 @@ final class provider implements
         }
     }
 
+    /**
+     * Process erasure for all users in the requested context.
+     *
+     * @param context $context Native Moodle context.
+     * @return void
+     */
     public static function delete_data_for_all_users_in_context(context $context): void {
         if ($context->id !== context_system::instance()->id) {
             return;
@@ -87,6 +117,12 @@ final class provider implements
         }
     }
 
+    /**
+     * Process the erasure request for the approved user and contexts.
+     *
+     * @param approved_contextlist $contextlist Approved user and context selection.
+     * @return void
+     */
     public static function delete_data_for_user(approved_contextlist $contextlist): void {
         $context = context_system::instance();
         if (!in_array($context->id, $contextlist->get_contextids(), true)) {
@@ -95,6 +131,12 @@ final class provider implements
         self::anonymise_users([(int) $contextlist->get_user()->id], $context->id);
     }
 
+    /**
+     * Add the users represented in the requested context to the privacy list.
+     *
+     * @param userlist $userlist Users represented in the requested context.
+     * @return void
+     */
     public static function get_users_in_context(userlist $userlist): void {
         $context = $userlist->get_context();
         if ($context->id !== context_system::instance()->id) {
@@ -102,12 +144,21 @@ final class provider implements
         }
         foreach (self::USER_FIELDS as $table => $fields) {
             foreach ($fields as $field) {
-                $userlist->add_from_sql('userid',
-                    "SELECT DISTINCT {$field} AS userid FROM {{$table}} WHERE {$field} <> 0", []);
+                $userlist->add_from_sql(
+                    'userid',
+                    "SELECT DISTINCT {$field} AS userid FROM {{$table}} WHERE {$field} <> 0",
+                    []
+                );
             }
         }
     }
 
+    /**
+     * Process erasure for the approved users in the requested context.
+     *
+     * @param approved_userlist $userlist Users represented in the requested context.
+     * @return void
+     */
     public static function delete_data_for_users(approved_userlist $userlist): void {
         $context = $userlist->get_context();
         if ($context->id !== context_system::instance()->id || $userlist->get_userids() === []) {
@@ -116,7 +167,15 @@ final class provider implements
         self::anonymise_users($userlist->get_userids(), $context->id);
     }
 
-    /** @return array{0:string,1:array<string,int>} */
+    /**
+     * Build the parameterised selection for records attributed to a user.
+     *
+     * @return array{0:string,1:array<string,int>}
+     *
+     * @param array $fields Field names or definitions used by this operation.
+     * @param int $userid User ID.
+     * @param string $prefix Prefix used to namespace the generated values.
+     */
     private static function user_select(array $fields, int $userid, string $prefix): array {
         $conditions = [];
         $params = [];
@@ -128,7 +187,15 @@ final class provider implements
         return [implode(' OR ', $conditions), $params];
     }
 
-    /** @return array<string, mixed> */
+    /**
+     * Prepare a record for export without exposing other authors' identifiers.
+     *
+     * @return array<string, mixed>
+     *
+     * @param \stdClass $record Record to process.
+     * @param array $userfields Fields containing user IDs.
+     * @param int $userid User ID.
+     */
     private static function export_record(\stdClass $record, array $userfields, int $userid): array {
         $data = (array) $record;
         $relations = [];
@@ -147,6 +214,13 @@ final class provider implements
         return $data;
     }
 
+    /**
+     * Clear the approved users' attribution while retaining shared content.
+     *
+     * @param array $userids User IDs included in the request.
+     * @param int $contextid Native context ID.
+     * @return void
+     */
     private static function anonymise_users(array $userids, int $contextid): void {
         global $DB;
         [$usersql, $params] = $DB->get_in_or_equal(array_map('intval', $userids), SQL_PARAMS_NAMED, 'uid');
@@ -156,5 +230,4 @@ final class provider implements
             }
         }
     }
-
 }

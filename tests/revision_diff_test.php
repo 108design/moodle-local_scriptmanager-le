@@ -1,16 +1,39 @@
 <?php
+/**
+ * Regression tests for revision diff.
+ *
+ * @package local_scriptmanager
+ * @copyright 2026 Andreas Giesen <andreas@108design.com>
+ * @license 108design source-available software license; see LICENSE.md
+ */
+
 // Copyright (C) 2026 Andreas Giesen <andreas@108design.com>. See LICENSE.md.
 namespace local_scriptmanager;
+
 use local_scriptmanager\local\script_revision_diff;
+
+/**
+ * Regression tests for revision diff.
+ */
 final class revision_diff_test extends \basic_testcase {
+    /**
+     * Verify that comparison keeps source as data.
+     *
+     * @return void
+     */
     public function test_comparison_keeps_source_as_data(): void {
-        $diff=script_revision_diff::operations("alpha\nbeta", "alpha\ngamma");
-        $this->assertContains(['remove','beta'],$diff['operations']);
-        $this->assertContains(['add','gamma'],$diff['operations']);
+        $diff = script_revision_diff::operations("alpha\nbeta", "alpha\ngamma");
+        $this->assertContains(['remove', 'beta'], $diff['operations']);
+        $this->assertContains(['add', 'gamma'], $diff['operations']);
         $this->assertNotEmpty(script_revision_diff::hunks($diff['operations']));
     }
+    /**
+     * Verify that foreign revision is rejected.
+     *
+     * @return void
+     */
     public function test_foreign_revision_is_rejected(): void {
         $this->expectException(\invalid_parameter_exception::class);
-        script_revision_diff::select([(object)['id'=>9,'scriptid'=>2,'versionnumber'=>1]],1,9,9);
+        script_revision_diff::select([(object)['id' => 9, 'scriptid' => 2, 'versionnumber' => 1]], 1, 9, 9);
     }
 }

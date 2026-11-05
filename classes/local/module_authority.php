@@ -1,25 +1,35 @@
 <?php
 /**
- * This file is part of a 108design source-available software product.
- *
- * Use and modification are permitted only under the Software License included
- * with this distribution. See LICENSE.md for the full terms.
- *
- * File documentation for classes/local/module_authority.php.
+ * Persistent ownership for the script configuration.
  *
  * @package   local_scriptmanager
  * @copyright 2026 Andreas Giesen <andreas@108design.com>
  * @license   108design source-available software license; see LICENSE.md
  */
+
 namespace local_scriptmanager\local;
 
 defined('MOODLE_INTERNAL') || die();
 
-/** Persistent ownership for the script configuration. */
+/**
+ * Persistent ownership for the script configuration.
+ */
 final class module_authority {
+    /**
+     * Host.
+     */
     private const HOST = 'local_scriptmanager';
+    /**
+     * @var array Writing.
+     */
     private static array $writing = [];
 
+    /**
+     * Resolve the component providing the requested module.
+     *
+     * @param string $module Module key whose owner is being resolved.
+     * @return string
+     */
     private static function component(string $module): string {
         if (!in_array($module, ['scriptmanager'], true)) {
             throw new \coding_exception('Unknown script module.');
@@ -27,7 +37,12 @@ final class module_authority {
         return 'local_' . $module;
     }
 
-    /** Reading ownership never claims it from a menu/script or changes licence state. */
+    /**
+     * Reading ownership never claims it from a menu/script or changes licence state.
+     *
+     * @param string $module Module key whose owner is being resolved.
+     * @return string
+     */
     public static function owner(string $module): string {
         $component = self::component($module);
         if (get_config($component, 'frontpagemigrationcompleted')) {
@@ -67,7 +82,12 @@ final class module_authority {
         return $component;
     }
 
-    /** Called by installation/upgrade; an existing decision is never replaced. */
+    /**
+     * Called by installation/upgrade; an existing decision is never replaced.
+     *
+     * @param string $module Module key whose owner is being resolved.
+     * @return void
+     */
     public static function initialise(string $module): void {
         $component = self::component($module);
         $lock = self::lock($module);
@@ -81,18 +101,40 @@ final class module_authority {
         }
     }
 
+    /**
+     * Check whether this component is the recorded module owner.
+     *
+     * @param string $module Module key whose owner is being resolved.
+     * @return bool
+     */
     public static function is_owner(string $module): bool {
         return self::owner($module) === self::HOST;
     }
 
+    /**
+     * Require this component to own the module before continuing.
+     *
+     * @param string $module Module key whose owner is being resolved.
+     * @return void
+     */
     public static function assert_owner(string $module): void {
         if (!self::is_owner($module)) {
-            throw new \moodle_exception('moduleinactive', self::HOST, self::owner_url($module),
-                self::owner_label($module));
+            throw new \moodle_exception(
+                'moduleinactive',
+                self::HOST,
+                self::owner_url($module),
+                self::owner_label($module)
+            );
         }
     }
 
-    /** Keep ownership and each normal write serialized with the explicit handover. */
+    /**
+     * Keep ownership and each normal write serialized with the explicit handover.
+     *
+     * @param string $module Module key whose owner is being resolved.
+     * @param callable $operation Operation to run inside the protected scope.
+     * @return mixed
+     */
     public static function write(string $module, callable $operation): mixed {
         if (!empty(self::$writing[$module])) {
             self::assert_owner($module);
@@ -110,6 +152,12 @@ final class module_authority {
         }
     }
 
+    /**
+     * Acquire the shared lock protecting module ownership or writes.
+     *
+     * @param string $module Module key whose owner is being resolved.
+     * @return \core\lock\lock
+     */
     private static function lock(string $module): \core\lock\lock {
         $lock = \core\lock\lock_config::get_lock_factory('local_frontpage_modules')->get_lock($module, 10);
         if (!$lock) {
@@ -118,21 +166,37 @@ final class module_authority {
         return $lock;
     }
 
+    /**
+     * Return the display name of the recorded module owner.
+     *
+     * @param string $module Module key whose owner is being resolved.
+     * @return string
+     */
     private static function owner_label(string $module): string {
         return self::owner($module) === 'local_frontpage' ? 'Frontpage'
             : get_string('pluginname', self::component($module));
     }
 
+    /**
+     * Return the administration URL of the recorded module owner.
+     *
+     * @param string $module Module key whose owner is being resolved.
+     * @return \moodle_url
+     */
     public static function owner_url(string $module): \moodle_url {
         $owner = self::owner($module);
         if ($owner === 'conflict') {
             return new \moodle_url('/admin/search.php');
         }
-        return new \moodle_url('/local/' . ($owner === 'local_frontpage' ? 'frontpage' : $module)
-            . '/scripts.php');
+        return new \moodle_url('/local/' . ($owner === 'local_frontpage' ? 'frontpage' : $module) . '/scripts.php');
     }
 
-    /** Inactive tabs remain reachable and explain their owner instead of exposing another editor. */
+    /**
+     * Inactive tabs remain reachable and explain their owner instead of exposing another editor.
+     *
+     * @param string $module Module key whose owner is being resolved.
+     * @return string
+     */
     public static function notice(string $module): string {
         global $OUTPUT;
         $owner = self::owner($module);
@@ -140,9 +204,11 @@ final class module_authority {
             return $OUTPUT->notification(get_string('moduleownershipconflict', self::HOST), 'warning');
         }
         $html = $OUTPUT->notification(get_string('moduleinactive', self::HOST, self::owner_label($module)), 'info');
-        $html .= \html_writer::link(self::owner_url($module),
-            get_string('moduleopenowner', self::HOST, self::owner_label($module)), ['class' => 'btn btn-secondary']);
+        $html .= \html_writer::link(
+            self::owner_url($module),
+            get_string('moduleopenowner', self::HOST, self::owner_label($module)),
+            ['class' => 'btn btn-secondary']
+        );
         return $html;
     }
-
 }

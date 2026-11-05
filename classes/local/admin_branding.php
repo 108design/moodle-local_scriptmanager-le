@@ -1,37 +1,79 @@
 <?php
+/**
+ * Decorative product identity on explicitly selected administration surfaces only.
+ *
+ * @package local_scriptmanager
+ * @copyright 2026 Andreas Giesen <andreas@108design.com>
+ * @license 108design source-available software license; see LICENSE.md
+ */
+
 // Copyright (C) 2026 Andreas Giesen. See the plugin's LICENSE or LICENSE.md.
 namespace local_scriptmanager\local;
 
 defined('MOODLE_INTERNAL') || die();
 
-/** Decorative product identity on explicitly selected administration surfaces only. */
-final class admin_branding {
-    /** Native page paths and their existing system-level administration capabilities. */
-    private const PAGES = ['/local/scriptmanager/scripts.php' => 'local/scriptmanager:manage', '/local/scriptmanager/script_edit.php' => 'local/scriptmanager:manage', '/local/scriptmanager/script_history.php' => 'local/scriptmanager:manage'];
-    /** Existing native settings sections; these are never customer routes. */
-    private const SECTIONS = [];
-    /** Existing administration links, without changing their labels or destinations. */
-    private const LINKS = ['/local/scriptmanager/scripts.php' => 'local/scriptmanager:manage', ];
+// Retain the configured administration directory for supported Moodle 4.5 installations.
 
-    /** Give native external pages a product heading when Core supplied only the site name. */
+/**
+ * Decorative product identity on explicitly selected administration surfaces only.
+ */
+final class admin_branding {
+    /**
+     * Native page paths and their existing system-level administration capabilities.
+     */
+    private const PAGES = [
+        '/local/scriptmanager/scripts.php' => 'local/scriptmanager:manage',
+         '/local/scriptmanager/script_edit.php' => 'local/scriptmanager:manage',
+         '/local/scriptmanager/script_history.php' => 'local/scriptmanager:manage',
+    ];
+    /**
+     * Existing native settings sections; these are never customer routes.
+     */
+    private const SECTIONS = [];
+    /**
+     * Existing administration links, without changing their labels or destinations.
+     */
+    private const LINKS = ['/local/scriptmanager/scripts.php' => 'local/scriptmanager:manage' ];
+
+    /**
+     * Give native external pages a product heading when Core supplied only the site name.
+     *
+     * @param \core\hook\output\before_http_headers $hook Native Moodle output hook.
+     * @return void
+     */
     public static function prepare(\core\hook\output\before_http_headers $hook): void {
         global $CFG, $PAGE, $SITE;
-        if (self::page_capability() !== null
+        if (
+            self::page_capability() !== null
+                // phpcs:ignore moodle.Deprecations.DeprecatedCFGProperties.DeprecatedCFGProperty
                 && $PAGE->url->get_path() !== (new \moodle_url('/' . $CFG->admin . '/settings.php'))->get_path()
-                && trim(strip_tags($PAGE->heading)) === trim(strip_tags($SITE->fullname))) {
+                && trim(strip_tags($PAGE->heading)) === trim(strip_tags($SITE->fullname))
+        ) {
             $PAGE->set_heading(get_string('pluginname', 'local_scriptmanager'));
         }
     }
 
+    /**
+     * Prepare the component branding for the native page header.
+     *
+     * @param \core\hook\output\before_standard_head_html_generation $hook Native Moodle output hook.
+     * @return void
+     */
     public static function head(\core\hook\output\before_standard_head_html_generation $hook): void {
         $hook->add_html(self::html($hook->renderer));
     }
 
-    /** Allowlist shared with this plugin's contextual administration help, if present. */
+    /**
+     * Allowlist shared with this plugin's contextual administration help, if present.
+     *
+     * @return string|null
+     */
     public static function page_capability(): ?string {
         global $CFG, $PAGE;
-        if (during_initial_install() || !isloggedin() || isguestuser()
-                || (int)$PAGE->context->contextlevel !== CONTEXT_SYSTEM) {
+        if (
+            during_initial_install() || !isloggedin() || isguestuser()
+                || (int)$PAGE->context->contextlevel !== CONTEXT_SYSTEM
+        ) {
             return null;
         }
         $path = $PAGE->url->get_path();
@@ -41,15 +83,23 @@ final class admin_branding {
                 return $capability;
             }
         }
-        if ($path === (new \moodle_url('/' . $CFG->admin . '/settings.php'))->get_path()
+        if (
+            // phpcs:ignore moodle.Deprecations.DeprecatedCFGProperties.DeprecatedCFGProperty
+            $path === (new \moodle_url('/' . $CFG->admin . '/settings.php'))->get_path()
                 && in_array((string)$PAGE->url->get_param('section'), self::SECTIONS, true)
-                && has_capability('moodle/site:config', $system)) {
+                && has_capability('moodle/site:config', $system)
+        ) {
             return 'moodle/site:config';
         }
         return null;
     }
 
-    /** Also used by the pre-hook fallback on supported older Moodle versions. */
+    /**
+     * Also used by the pre-hook fallback on supported older Moodle versions.
+     *
+     * @param \renderer_base $renderer Native renderer used for output.
+     * @return string
+     */
     public static function html(\renderer_base $renderer): string {
         global $CFG, $PAGE;
 
@@ -57,12 +107,15 @@ final class admin_branding {
             return '';
         }
         $path = $PAGE->url->get_path();
+        // phpcs:ignore moodle.Deprecations.DeprecatedCFGProperties.DeprecatedCFGProperty
         $admin = '/' . $CFG->admin;
         $nativepath = static fn(string $value): string => (new \moodle_url($value))->get_path();
         $system = \context_system::instance();
         $css = '';
-        $image = json_encode($renderer->image_url('adminbrand', 'local_scriptmanager')->out(false),
-            JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
+        $image = json_encode(
+            $renderer->image_url('adminbrand', 'local_scriptmanager')->out(false),
+            JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR
+        );
 
         // An administrator looking at a customer or course page still sees no product branding.
         if (self::page_capability() !== null && $path !== $nativepath($admin . '/settings.php')) {
@@ -71,16 +124,20 @@ final class admin_branding {
             // Native settings retain the site name in H1; the product title is the settings-form H2.
             $css .= self::title_css('#adminsettings .settingsform > h2', $image);
         }
-        if ($path === $nativepath($admin . '/plugins.php')
-                && has_capability('moodle/site:config', $system)) {
+        if (
+            $path === $nativepath($admin . '/plugins.php')
+                && has_capability('moodle/site:config', $system)
+        ) {
             // Do not replace pix/icon or monologo: those may also identify a learner-facing activity.
             $row = 'body#page-admin-plugins tr.name-local_scriptmanager .pluginname .displayname';
             $css .= $row . ' > img.icon { display: none; }' . "\n";
             $css .= self::icon_css($row . '::before', $image, '1em');
         }
-        if ($path === $nativepath($admin . '/index.php')
+        if (
+            $path === $nativepath($admin . '/index.php')
                 && (int)$PAGE->context->contextlevel === CONTEXT_SYSTEM
-                && has_capability('moodle/site:config', $system)) {
+                && has_capability('moodle/site:config', $system)
+        ) {
             // Upgrade checks have different markup from the ordinary plugin overview.
             // Keep the activity's icon/monologo assets unchanged for course pages.
             $row = 'body#page-admin-index #plugins-check tr.name-local_scriptmanager td.displayname';
@@ -92,22 +149,43 @@ final class admin_branding {
                 if (!has_capability($capability, $system)) {
                     continue;
                 }
+                // phpcs:ignore moodle.Deprecations.DeprecatedCFGProperties.DeprecatedCFGProperty
                 $target = str_replace('{admin}', $CFG->admin, $target);
-                $link = json_encode((new \moodle_url($target))->out(false),
-                    JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
-                $css .= self::icon_css('body#page-admin-search #region-main a[href=' . $link . ']::before',
-                    $image, '1em');
+                $link = json_encode(
+                    (new \moodle_url($target))->out(false),
+                    JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR
+                );
+                $css .= self::icon_css(
+                    'body#page-admin-search #region-main a[href=' . $link . ']::before',
+                    $image,
+                    '1em'
+                );
             }
         }
         return $css === '' ? '' : \html_writer::tag('style', $css, ['id' => 'local_scriptmanager-admin-branding']);
     }
 
+    /**
+     * Return the scoped styles for the component administration icon.
+     *
+     * @param string $selector CSS selector for the scoped styles.
+     * @param string $image Image URL used by the generated styles.
+     * @param string $size CSS size of the generated icon.
+     * @return string
+     */
     private static function icon_css(string $selector, string $image, string $size): string {
         return $selector . ' { content: ""; display: inline-block; width: ' . $size . '; height: ' . $size
             . '; margin-inline-end: .35em; vertical-align: -.125em; background: url(' . $image
             . ') center / contain no-repeat; }' . "\n";
     }
 
+    /**
+     * Return the scoped styles for the component page title.
+     *
+     * @param string $selector CSS selector for the scoped styles.
+     * @param string $image Image URL used by the generated styles.
+     * @return string
+     */
     private static function title_css(string $selector, string $image): string {
         return self::icon_css($selector . '::before', $image, '1em') . <<<CSS
 @media (max-width: 575.98px) {

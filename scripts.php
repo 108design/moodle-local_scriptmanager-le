@@ -1,14 +1,15 @@
 <?php
 /**
- * File documentation for scripts.php.
+ * List managed script drafts, publications and enablement.
  *
  * @package   local_scriptmanager
  * @copyright 2026 Andreas Giesen <andreas@108design.com>
  * @license   108design source-available software license; see LICENSE.md
  */
+
 // This file is part of a 108design source-available software product.
 //
-// Copyright (C) 2026 Andreas Giesen <andreas@108design.com>
+// Copyright (C) 2026 Andreas Giesen <andreas@108design.com>.
 //
 // Use and modification are permitted only under the Software License included
 // with this distribution. See LICENSE.md for the full terms.
@@ -38,10 +39,19 @@ if (!\local_scriptmanager\local\module_authority::is_owner('scriptmanager')) {
     echo $OUTPUT->footer();
     exit;
 }
-$pageactions = [html_writer::link(new moodle_url('/local/scriptmanager/script_edit.php'),
-    $OUTPUT->pix_icon('t/add', '') . html_writer::span(get_string('createscript', 'local_scriptmanager'),
-        'local-scriptmanager-ms-1'), ['class' => 'btn btn-primary'])];
-echo ui::page_header(get_string('managescripts', 'local_scriptmanager') . ' ' . \local_scriptmanager\output\context_help::icon('scriptbasics'), $pageactions);
+$pageactions = [html_writer::link(
+    new moodle_url('/local/scriptmanager/script_edit.php'),
+    $OUTPUT->pix_icon('t/add', '') . html_writer::span(
+        get_string('createscript', 'local_scriptmanager'),
+        'local-scriptmanager-ms-1'
+    ),
+    ['class' => 'btn btn-primary']
+)];
+echo ui::page_header(
+    get_string('managescripts', 'local_scriptmanager') . ' '
+        . \local_scriptmanager\output\context_help::icon('scriptbasics'),
+    $pageactions
+);
 echo $OUTPUT->notification(get_string('scriptmanagernotice', 'local_scriptmanager'), 'warning');
 $scripts = factory::read_script_repository()->get_all();
 $searchquery = trim(optional_param('scriptq', '', PARAM_TEXT));
@@ -54,9 +64,13 @@ echo \local_scriptmanager\output\search_bar::controls(new moodle_url('/local/scr
     'scriptstate' => ['label' => get_string('status'), 'value' => $searchstate,
         'options' => ['' => get_string('all'), 'enabled' => get_string('enabled', 'core_admin'),
             'disabled' => get_string('disabled', 'core_admin')]],
-    'scriptpublication' => ['label' => get_string('searchbarpublication', 'local_scriptmanager'), 'value' => $searchpublication,
+    'scriptpublication' => [
+        'label' => get_string('searchbarpublication', 'local_scriptmanager'),
+         'value' => $searchpublication,
+
         'options' => ['' => get_string('all'), 'published' => get_string('scriptpublished', 'local_scriptmanager'),
-            'draft' => get_string('scriptunpublished', 'local_scriptmanager')]],
+            'draft' => get_string('scriptunpublished', 'local_scriptmanager')],
+    ],
 ], 'local_scriptmanager-scripts');
 echo html_writer::start_div('', ['data-search-bar-results' => '1']);
 $scripts = array_filter($scripts, static fn(object $item): bool =>
@@ -70,35 +84,56 @@ if (!$scripts) {
     echo $OUTPUT->notification(get_string('noscripts', 'local_scriptmanager'), 'info');
 } else {
     $table = new html_table();
-    $table->attributes['class'] = 'generaltable table table-hover w-100 local-scriptmanager-action-table local-scriptmanager-script-library-table';
-    $table->head = [get_string('tableheadingname', 'local_scriptmanager'), get_string('description'), html_writer::span(get_string('status') . ' ' . \local_scriptmanager\output\context_help::icon('scriptpublication', 'scripts'), 'text-nowrap'),
-        get_string('tableheadingpublished', 'local_scriptmanager'), get_string('tableheadingmodified', 'local_scriptmanager'), get_string('actions')];
+    $table->attributes['class'] = ('generaltable table table-hover w-100 local-scriptmanager-action-table '
+        . 'local-scriptmanager-script-library-table');
+    $table->head = [
+        get_string('tableheadingname', 'local_scriptmanager'),
+         get_string('description'),
+         html_writer::span(
+             get_string('status') . ' '
+             . \local_scriptmanager\output\context_help::icon('scriptpublication', 'scripts'),
+             'text-nowrap'
+         ),
+
+        get_string('tableheadingpublished', 'local_scriptmanager'),
+         get_string('tableheadingmodified', 'local_scriptmanager'),
+         get_string('actions'),
+    ];
     foreach ($scripts as $script) {
         $status = \local_scriptmanager\output\table_presentation::enabled((bool) $script->enabled);
         $publication = \local_scriptmanager\output\table_presentation::publication(!empty($script->publishedversionid));
         $editurl = new moodle_url('/local/scriptmanager/script_edit.php', ['id' => $script->id]);
-        $actions = [ui::icon_action($editurl,
-            get_string('edit'), 't/edit')];
+        $actions = [ui::icon_action($editurl, get_string('edit'), 't/edit')];
         $togglelabel = get_string($script->enabled ? 'deactivatescript' : 'activatescript', 'local_scriptmanager');
         $toggleclass = $script->enabled ? 'local-scriptmanager-state-enabled' : 'local-scriptmanager-state-disabled';
         {
             $actions[] = ui::icon_post_action(new moodle_url('/local/scriptmanager/script_publish.php', [
                 'id' => $script->id, 'sesskey' => sesskey(),
             ]), get_string('publishscript', 'local_scriptmanager'), 'i/publish');
-            $actions[] = ui::icon_action(new moodle_url('/local/scriptmanager/script_history.php', ['id'=>$script->id]),
-                get_string('revisions', 'local_scriptmanager'), 'i/restore');
+            $actions[] = ui::icon_action(
+                new moodle_url('/local/scriptmanager/script_history.php', ['id' => $script->id]),
+                get_string('revisions', 'local_scriptmanager'),
+                'i/restore'
+            );
             $actions[] = ui::icon_post_action(new moodle_url('/local/scriptmanager/script_toggle.php', [
                 'id' => $script->id, 'enabled' => $script->enabled ? 0 : 1, 'sesskey' => sesskey(),
             ]), $togglelabel, $script->enabled ? 't/hide' : 't/show', $toggleclass);
             $deletemodalid = 'local-scriptmanager-delete-script-' . $script->id;
-            $actions[] = ui::icon_modal_action($deletemodalid, get_string('delete'), 't/delete',
-                'local-scriptmanager-action-danger');
-            $confirmationmodals[] = ui::confirmation_modal($deletemodalid,
+            $actions[] = ui::icon_modal_action(
+                $deletemodalid,
+                get_string('delete'),
+                't/delete',
+                'local-scriptmanager-action-danger'
+            );
+            $confirmationmodals[] = ui::confirmation_modal(
+                $deletemodalid,
                 get_string('deletescript', 'local_scriptmanager'),
                 get_string('deletescriptconfirm', 'local_scriptmanager', format_string($script->name)),
                 new moodle_url('/local/scriptmanager/script_delete.php', [
                     'id' => $script->id, 'confirm' => 1, 'sesskey' => sesskey(),
-                ]), get_string('delete'));
+                ]),
+                get_string('delete')
+            );
         }
         $description = trim((string) $script->description);
         $description = $description === '' ? '—' : s(shorten_text($description, 140, true));

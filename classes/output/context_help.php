@@ -1,20 +1,55 @@
 <?php
+/**
+ * Read-only customer help, limited to the current authoring context.
+ *
+ * @package local_scriptmanager
+ * @copyright 2026 Andreas Giesen <andreas@108design.com>
+ * @license 108design source-available software license; see LICENSE.md
+ */
+
 // Copyright (C) 2026 Andreas Giesen. See LICENSE.md.
 namespace local_scriptmanager\output;
 
-/** Read-only customer help, limited to the current authoring context. */
+/**
+ * Read-only customer help, limited to the current authoring context.
+ */
 final class context_help {
+    /**
+     * Contexts.
+     */
     private const CONTEXTS = [
-        'scripts' => ['scriptbasics', 'scriptpublication', 'scriptexecution', 'scriptrevisions', 'scriptidentity', 'moduleownership'],
+        'scripts' => [
+        'scriptbasics',
+         'scriptpublication',
+         'scriptexecution',
+         'scriptrevisions',
+         'scriptidentity',
+         'moduleownership',
+        ],
+
     ];
 
+    /**
+     * @var ?string Context.
+     */
     private static ?string $context = null;
 
-    /** Shared preview renderers must not add help to unregistered chooser contexts. */
+    /**
+     * Shared preview renderers must not add help to unregistered chooser contexts.
+     *
+     * @param string $context Native Moodle context.
+     * @return bool
+     */
     public static function registered(string $context): bool {
         return self::$context === $context;
     }
 
+    /**
+     * Register the assets needed by the current native page.
+     *
+     * @param string $context Native Moodle context.
+     * @return void
+     */
     public static function prepare(string $context): void {
         global $CFG, $PAGE;
         self::topics($context);
@@ -29,6 +64,12 @@ final class context_help {
         ]]);
     }
 
+    /**
+     * Return the help topics available in the current editing context.
+     *
+     * @param string $context Native Moodle context.
+     * @return array
+     */
     private static function topics(string $context): array {
         if (!isset(self::CONTEXTS[$context])) {
             throw new \coding_exception('Unknown help context.');
@@ -36,7 +77,13 @@ final class context_help {
         return self::CONTEXTS[$context];
     }
 
-    /** Keep Moodle's help popover, using an information icon for our own context help. */
+    /**
+     * Keep Moodle's help popover, using an information icon for our own context help.
+     *
+     * @param string $topic Registered contextual help topic.
+     * @param string $context Native Moodle context.
+     * @return string
+     */
     public static function icon(string $topic, string $context = 'scripts'): string {
         global $CFG, $PAGE;
         if (!in_array($topic, self::topics($context), true)) {
@@ -54,7 +101,12 @@ final class context_help {
         return $renderer->render_from_template('local_scriptmanager/context_help_icon', $data);
     }
 
-    /** Called by Moodle's navbar callback only after a permitted page registers its help. */
+    /**
+     * Called by Moodle's navbar callback only after a permitted page registers its help.
+     *
+     * @param \renderer_base $renderer Native renderer used for output.
+     * @return string
+     */
     public static function navbar(\renderer_base $renderer): string {
         global $CFG;
         if (self::$context === null) {
@@ -62,15 +114,27 @@ final class context_help {
         }
         $key = self::$context === 'pages' ? 'pagehelp_title' : 'pagehelp_' . self::$context . '_title';
         $label = get_string($key, 'local_scriptmanager');
-        return \html_writer::tag('button', $renderer->pix_icon((int)$CFG->version < 2026100500 ? 'i/info' : 'i/circleinfo', ''), [
+        return \html_writer::tag(
+            'button',
+            $renderer->pix_icon((int)$CFG->version < 2026100500 ? 'i/info' : 'i/circleinfo', ''),
+            [
+
             'type' => 'button',
             'class' => 'nav-link icon-no-margin local-scriptmanager-help-navbar',
             'data-scriptmanager-help-open' => '', 'data-scriptmanager-help-context' => self::$context,
             'aria-label' => $label, 'title' => $label,
             'aria-controls' => 'local-scriptmanager-context-help', 'aria-expanded' => 'false',
-        ]);
+
+            ]
+        );
     }
 
+    /**
+     * Render the help panel for the registered page context.
+     *
+     * @param string $context Native Moodle context.
+     * @return string
+     */
     public static function render(string $context = 'scripts'): string {
         global $CFG, $PAGE;
         $key = $context === 'pages' ? 'pagehelp_title' : 'pagehelp_' . $context . '_title';
@@ -84,10 +148,12 @@ final class context_help {
         foreach (self::topics($context) as $topic) {
             $label = get_string('pagehelp_' . $topic, 'local_scriptmanager');
             $options .= \html_writer::tag('option', $label, ['value' => $topic]);
-            $articles .= \html_writer::tag('article', \html_writer::tag('h3', $label, ['class' => 'h5', 'tabindex' => '-1'])
-                . get_string('pagehelp_' . $topic . '_article', 'local_scriptmanager'), [
-                    'data-scriptmanager-help-article' => $topic, 'hidden' => 'hidden',
-                ]);
+            $articles .= \html_writer::tag(
+                'article',
+                \html_writer::tag('h3', $label, [ 'class' => 'h5', 'tabindex' => '-1' ])
+                . get_string('pagehelp_' . $topic . '_article', 'local_scriptmanager'),
+                [ 'data-scriptmanager-help-article' => $topic, 'hidden' => 'hidden' ]
+            );
         }
         $choice = \html_writer::tag('label', get_string('contexthelptopics', 'local_scriptmanager'), [
             'for' => 'local-scriptmanager-help-topic', 'class' => 'form-label',
@@ -102,10 +168,13 @@ final class context_help {
             'class' => 'local-scriptmanager-help-brand', 'role' => 'img', 'aria-label' => '108design',
             'title' => '108design', 'tabindex' => '0', 'data-toggle' => 'tooltip', 'data-bs-toggle' => 'tooltip',
         ]);
-        $header = \html_writer::tag('header', \html_writer::tag('h2', $title, [
+        $header = \html_writer::tag(
+            'header',
+            \html_writer::tag('h2', $title, [
             'id' => 'local-scriptmanager-context-help-title', 'class' => 'sr-only visually-hidden', 'tabindex' => '-1',
-        ]) . \html_writer::div($choice, 'local-scriptmanager-help-choices') . $brand . $close,
-            ['class' => 'local-scriptmanager-help-header local-scriptmanager-help-header-branded']);
+            ]) . \html_writer::div($choice, 'local-scriptmanager-help-choices') . $brand . $close,
+            ['class' => 'local-scriptmanager-help-header local-scriptmanager-help-header-branded']
+        );
         return \html_writer::tag('aside', $header
             . \html_writer::div($articles, 'local-scriptmanager-help-content', ['tabindex' => '0']), [
                 'id' => 'local-scriptmanager-context-help', 'class' => 'local-scriptmanager-context-help',
