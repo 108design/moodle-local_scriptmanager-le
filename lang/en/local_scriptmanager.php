@@ -11,18 +11,18 @@
 $string['actionbarmore'] = 'More actions';
 $string['activatescript'] = 'Activate script';
 $string['contexthelptopics'] = 'Help topics';
-$string['createscript'] = 'Create script';
+$string['createscript'] = 'Create Script';
 $string['deactivatescript'] = 'Deactivate script';
 $string['deletescript'] = 'Delete script';
 $string['deletescriptconfirm'] = ('Permanently delete “{$a}” and all its published versions? This cannot '
     . 'undo code that has already run.');
-$string['editscript'] = 'Edit script';
+$string['editscript'] = 'Edit Script';
 $string['fixedprofile'] = ('Enabled, published scripts run at the footer hook on permitted normal Moodle '
     . 'pages. Administration, login, authentication, tools, this manager, Frontpage '
     . 'pages and special layouts are excluded.');
 $string['loadrevisionineditor'] = 'Load revision in editor';
 $string['managerdateformat'] = '%d %b %Y, %H:%M';
-$string['managescripts'] = 'Script manager';
+$string['managescripts'] = 'Script Manager';
 $string['moduleinactive'] = 'This manager is inactive. {$a} owns the existing script configuration.';
 $string['moduleopenowner'] = 'Open {$a}';
 $string['moduleownershipconflict'] = ('The script configuration has conflicting ownership. Review the existing '
@@ -86,7 +86,7 @@ $string['pagehelp_scriptrevisions_article'] = (
     . 'switch the live version. It also does not undo effects of earlier code.</p>'
     );
 $string['pagehelp_scriptrevisions_help'] = 'Published versions record code, note, publisher and time.';
-$string['pagehelp_scripts_title'] = 'Script Manager help';
+$string['pagehelp_scripts_title'] = 'Script Manager Help';
 $string['pluginname'] = 'Script Manager';
 $string['privacy:metadata:code'] = 'Trusted JavaScript code';
 $string['privacy:metadata:description'] = 'Description';
@@ -95,18 +95,18 @@ $string['privacy:metadata:revisionnote'] = 'Revision note';
 $string['privacy:metadata:scripts'] = 'Script drafts and metadata';
 $string['privacy:metadata:scriptversions'] = 'Published script revisions';
 $string['privacy:metadata:userid'] = 'Editor user id';
-$string['publishrestoredrevision'] = 'Publish revision as a new version';
-$string['publishscript'] = 'Publish current draft';
+$string['publishrestoredrevision'] = 'Publish Revision as a New Version';
+$string['publishscript'] = 'Publish Current Draft';
 $string['revision'] = 'Version';
 $string['revisionauthor'] = 'Author';
 $string['revisions'] = 'Versions';
-$string['saveandpublishscript'] = 'Save and publish';
-$string['savescriptdraft'] = 'Save draft';
+$string['saveandpublishscript'] = 'Save and Publish';
+$string['savescriptdraft'] = 'Save Draft';
 $string['scriptcode'] = 'JavaScript';
 $string['scriptdeleted'] = 'The script was permanently deleted.';
 $string['scriptdescription'] = 'Description';
 $string['scriptdescription_help'] = 'An optional plain-text explanation for administrators. It is not rendered as page content.';
-$string['scriptdiffaction'] = 'Compare with previous revision';
+$string['scriptdiffaction'] = 'Compare with Previous Revision';
 $string['scriptdiffaddedcharacters'] = '+&nbsp;{$a}&nbsp;characters';
 $string['scriptdiffblock'] = 'The changed region is displayed as a contiguous block.';
 $string['scriptdiffcompare'] = 'Compare';
@@ -166,3 +166,22 @@ $string['scriptdifffrom'] = 'Starting revision';
 $string['scriptdiffto'] = 'Target revision';
 $string['scriptactivated'] = 'The script was enabled.';
 $string['scriptdeactivated'] = 'The script was disabled.';
+
+// Shared independent signed update protection.
+$string['updateguard_heading'] = 'Update stopped';
+$string['updateguard_component'] = 'The package for {$a} was rejected.';
+$string['updateguard_hint'] = 'Use an approved package for the installed edition. You can review the operation again.';
+$string['updateguard_unchanged'] = 'This request did not replace plugin files.';
+$string['updateguard_help'] = 'The installed plugin checks the publisher signature, package contents, permitted update channel and compatibility before replacement. A valid signature does not authorise a different edition. If one package is rejected, the whole batch stops.';
+$string['updateguard_signature'] = 'The publisher signature or package contents could not be verified.';
+$string['updateguard_policy'] = 'This package does not match the installed edition or permitted package profile.';
+$string['updateguard_channel'] = 'Updates through this channel are not enabled for this plugin.';
+$string['updateguard_metadata'] = 'The version or dependency information is inconsistent.';
+$string['updateguard_dependency'] = 'A required plugin version is missing. Update the dependency together with this plugin or beforehand.';
+$string['updateguard_approval'] = 'The packages or installed state have changed since the preview. Review the operation again.';
+$string['updateguard_busy'] = 'Another installation is running. Try again after it finishes.';
+$string['updateguard_installed'] = 'The installed update protection is incomplete. Restore the files of the last approved installed version.';
+$string['updateguard_operation'] = 'This combination of installation actions is not supported. Start a single update operation again.';
+$string['updateguard_failed'] = 'The update could not be verified. No installation was started.';
+$string['updateguard_back'] = 'Return to plugin overview';
+// End shared independent signed update protection.

@@ -524,3 +524,6 @@ body:is(#page-local-scriptmanager-scripts,#page-local-scriptmanager-libraries,#p
 
 /* Keep hidden action labels inside their scrolling table cell. */
 .local-scriptmanager-icon-button,.local-scriptmanager-editor-actions .shared-table-actionbar-toggle {position:relative;}
+
+.local-scriptmanager-trust-notice { border-inline-start: 3px solid var(--bs-warning, #d39e00); padding: .75rem 1rem; background: var(--bs-tertiary-bg, #f8f9fa); }
+.local-scriptmanager-script-library-table td { vertical-align: middle; }

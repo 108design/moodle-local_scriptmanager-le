@@ -30,3 +30,10 @@ $callbacks[] = [
     'hook' => \core\hook\output\before_http_headers::class,
     'callback' => [\local_scriptmanager\local\admin_branding::class, 'prepare'],
 ];
+
+// Independent signed update-package guard.
+$callbacks[] = [
+    'hook' => \core\hook\after_config::class,
+    'callback' => [\local_scriptmanager\local\update_guard::class, 'after_config'],
+    'priority' => 1002,
+];

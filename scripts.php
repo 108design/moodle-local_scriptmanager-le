@@ -52,7 +52,7 @@ echo ui::page_header(
         . \local_scriptmanager\output\context_help::icon('scriptbasics'),
     $pageactions
 );
-echo $OUTPUT->notification(get_string('scriptmanagernotice', 'local_scriptmanager'), 'warning');
+echo html_writer::div(get_string('scriptmanagernotice', 'local_scriptmanager'), 'local-scriptmanager-trust-notice mb-4');
 $scripts = factory::read_script_repository()->get_all();
 $searchquery = trim(optional_param('scriptq', '', PARAM_TEXT));
 $searchstate = optional_param('scriptstate', '', PARAM_ALPHA);
@@ -136,7 +136,7 @@ if (!$scripts) {
             );
         }
         $description = trim((string) $script->description);
-        $description = $description === '' ? '—' : s(shorten_text($description, 140, true));
+        $description = $description === '' ? 'â€”' : s(shorten_text($description, 140, true));
         $table->data[] = [html_writer::link($editurl, format_string($script->name)) .
             html_writer::div(s($script->identifier), 'text-muted small'), $description, $status, $publication,
             \local_scriptmanager\output\table_presentation::date($script->timemodified), ui::table_actions($actions)];
