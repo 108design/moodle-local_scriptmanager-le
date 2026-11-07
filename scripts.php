@@ -136,7 +136,7 @@ if (!$scripts) {
             );
         }
         $description = trim((string) $script->description);
-        $description = $description === '' ? 'â€”' : s(shorten_text($description, 140, true));
+        $description = $description === '' ? '—' : s(shorten_text($description, 140, true));
         $table->data[] = [html_writer::link($editurl, format_string($script->name)) .
             html_writer::div(s($script->identifier), 'text-muted small'), $description, $status, $publication,
             \local_scriptmanager\output\table_presentation::date($script->timemodified), ui::table_actions($actions)];

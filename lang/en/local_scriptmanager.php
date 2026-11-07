@@ -9,11 +9,11 @@
 
 // Copyright (C) 2026 Andreas Giesen <andreas@108design.com>. See LICENSE.md.
 $string['actionbarmore'] = 'More actions';
-$string['activatescript'] = 'Activate script';
+$string['activatescript'] = 'Activate Script';
 $string['contexthelptopics'] = 'Help topics';
 $string['createscript'] = 'Create Script';
-$string['deactivatescript'] = 'Deactivate script';
-$string['deletescript'] = 'Delete script';
+$string['deactivatescript'] = 'Deactivate Script';
+$string['deletescript'] = 'Delete Script';
 $string['deletescriptconfirm'] = ('Permanently delete “{$a}” and all its published versions? This cannot '
     . 'undo code that has already run.');
 $string['editscript'] = 'Edit Script';
@@ -71,7 +71,7 @@ $string['pagehelp_scriptidentity_article'] = (
 $string['pagehelp_scriptidentity_help'] = 'Use a descriptive name and a unique identifier containing letters, digits, underscores or hyphens.';
 $string['pagehelp_scriptpublication'] = 'Draft, publication and enablement';
 $string['pagehelp_scriptpublication_article'] = (
-        '<p>Saving a draft does not change published code. Save and publish creates an '
+        '<p>Saving a draft does not change published code. Save and Publish creates an '
     . 'immutable version. Enablement is a separate switch. Disabled scripts are '
     . 'excluded from future delivery; previously executed or cached files may remain '
     . 'effective. Delete requires confirmation and permanently removes the script '
