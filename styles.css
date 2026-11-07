@@ -336,6 +336,10 @@ body[id^="page-admin-local-scriptmanager-"] .local-scriptmanager-compact-table >
 
 /* END shared search bar */
 
+#page-local-scriptmanager-scripts .local-plugin-search-bar-manager {
+    background: var(--bs-secondary-bg, #e9ecef);
+}
+
 /* BEGIN shared table actionbar */
 /* Shared responsive table action bars. Picker surfaces opt out in JavaScript. */
 .is-table-actionbar-stacked {
