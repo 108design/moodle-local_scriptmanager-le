@@ -232,7 +232,7 @@ final class script_repository_test extends \advanced_testcase {
         $repo->save($script, false, $USER->id);
         $this->assertSame([], $resolver->resolve($page));
         $repo->publish($script->id, $USER->id);
-        $this->assertSame([$script->id], array_keys($resolver->resolve($page)));
+        $this->assertSame([(int)$script->id], array_keys($resolver->resolve($page)));
         foreach ([['preview' => 1], ['revisionid' => 2]] as $params) {
             $page->set_url(new \moodle_url('/local/frontpage/view.php', ['id' => 1] + $params));
             $this->assertSame([], $resolver->resolve($page));
@@ -243,11 +243,11 @@ final class script_repository_test extends \advanced_testcase {
         $page->set_pagetype('mod-frontpage-view');
         $page->set_pagelayout('incourse');
         $page->set_url(new \moodle_url('/mod/frontpage/view.php', ['id' => 1]));
-        $this->assertSame([$script->id], array_keys($resolver->resolve($page)));
+        $this->assertSame([(int)$script->id], array_keys($resolver->resolve($page)));
 
         $repo->restore($script->id, $firstversion, $USER->id);
         $this->assertEmpty($repo->get($script->id)->allowfrontpage);
-        $this->assertSame([$script->id], array_keys($resolver->resolve($page)));
+        $this->assertSame([(int)$script->id], array_keys($resolver->resolve($page)));
         $repo->publish($script->id, $USER->id);
         $this->assertSame([], $resolver->resolve($page));
     }

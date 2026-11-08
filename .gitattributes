@@ -74,6 +74,9 @@
 "/docs" export-ignore -export-subst
 "/docs/branding" export-ignore -export-subst
 "/docs/branding/logo.svg" export-ignore -export-subst
+"/docs/screenshots" export-ignore -export-subst
+"/docs/screenshots/script-manager-editor.jpg" export-ignore -export-subst
+"/docs/screenshots/script-manager-list.jpg" export-ignore -export-subst
 "/editor-src" -export-ignore -export-subst
 "/editor-src/README.md" -export-ignore -export-subst
 "/editor-src/build.mjs" -export-ignore -export-subst
