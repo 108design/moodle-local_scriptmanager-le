@@ -36,7 +36,7 @@ final class script_repository {
      * @return array
      */
     public function get_all(): array {
-        return $this->db->get_records('local_scriptmgr_script', null, 'name ASC');
+        return $this->db->get_records('local_scriptmanager_script', null, 'name ASC');
     }
 
     /**
@@ -46,7 +46,7 @@ final class script_repository {
      * @return stdClass
      */
     public function get(int $id): stdClass {
-        return $this->db->get_record('local_scriptmgr_script', ['id' => $id], '*', MUST_EXIST);
+        return $this->db->get_record('local_scriptmanager_script', ['id' => $id], '*', MUST_EXIST);
     }
 
     /**
@@ -59,7 +59,7 @@ final class script_repository {
     public function identifier_exists(string $identifier, int $ignoreid = 0): bool {
         $sql = 'identifier = :identifier' . ($ignoreid ? ' AND id <> :id' : '');
         return $this->db->record_exists_select(
-            'local_scriptmgr_script',
+            'local_scriptmanager_script',
             $sql,
             ['identifier' => $identifier] + ($ignoreid ? ['id' => $ignoreid] : [])
         );
@@ -109,13 +109,13 @@ final class script_repository {
             $record->modifiedby = $userid;
             $record->timemodified = $now;
             $record->draftversion = 1;
-            $record->id = $this->db->insert_record('local_scriptmgr_script', $record);
+            $record->id = $this->db->insert_record('local_scriptmanager_script', $record);
         } else {
             $current = $this->get((int) $record->id);
             $record->draftversion = (int) $current->draftversion + 1;
             $record->modifiedby = $userid;
             $record->timemodified = $now;
-            $this->db->update_record('local_scriptmgr_script', $record);
+            $this->db->update_record('local_scriptmanager_script', $record);
         }
         if ($publish) {
             $this->publish_in_transaction((int) $record->id, (string) $record->draftcode, $userid, $now);
@@ -150,7 +150,7 @@ final class script_repository {
         $script = $this->get($id);
         $now = time();
         $this->publish_in_transaction($id, (string) $script->draftcode, $userid, $now);
-        $this->db->update_record('local_scriptmgr_script', (object) [
+        $this->db->update_record('local_scriptmanager_script', (object) [
             'id' => $id,
             'modifiedby' => $userid,
             'timemodified' => $now,
@@ -184,7 +184,7 @@ final class script_repository {
      */
     private function set_enabled_owned(int $id, bool $enabled, int $userid): stdClass {
         $this->get($id);
-        $this->db->update_record('local_scriptmgr_script', (object) [
+        $this->db->update_record('local_scriptmanager_script', (object) [
             'id' => $id,
             'enabled' => (int) $enabled,
             'modifiedby' => $userid,
@@ -199,7 +199,7 @@ final class script_repository {
      * @return array
      */
     public function versions(int $id): array {
-        return $this->db->get_records('local_scriptmgr_scriptver', ['scriptid' => $id], 'versionnumber DESC');
+        return $this->db->get_records('local_scriptmanager_scriptver', ['scriptid' => $id], 'versionnumber DESC');
     }
     /**
      * Restore the published script version into a draft.
@@ -226,7 +226,7 @@ final class script_repository {
      */
     private function restore_owned(int $id, int $versionid, int $userid): stdClass {
         $version = $this->db->get_record(
-            'local_scriptmgr_scriptver',
+            'local_scriptmanager_scriptver',
             ['id' => $versionid, 'scriptid' => $id],
             '*',
             MUST_EXIST
@@ -255,8 +255,8 @@ final class script_repository {
      */
     private function delete_owned(int $id): void {
         $this->get($id);
-        $this->db->delete_records('local_scriptmgr_scriptver', ['scriptid' => $id]);
-        $this->db->delete_records('local_scriptmgr_script', ['id' => $id]);
+        $this->db->delete_records('local_scriptmanager_scriptver', ['scriptid' => $id]);
+        $this->db->delete_records('local_scriptmanager_script', ['id' => $id]);
     }
 
     /**
@@ -266,8 +266,8 @@ final class script_repository {
      */
     public function get_context_candidates(): array {
         return $this->db->get_records_sql('SELECT s.id, s.name, s.identifier, s.enabled,
-            v.versionnumber, v.id AS versionid FROM {local_scriptmgr_script} s
-            JOIN {local_scriptmgr_scriptver} v ON v.id = s.publishedversionid
+            v.versionnumber, v.id AS versionid FROM {local_scriptmanager_script} s
+            JOIN {local_scriptmanager_scriptver} v ON v.id = s.publishedversionid
             WHERE s.enabled = 1 ORDER BY s.name ASC');
     }
 
@@ -294,10 +294,10 @@ final class script_repository {
     private function publish_in_transaction(int $id, string $code, int $userid, int $now): void {
         $script = $this->get($id);
         $number = 1 + (int) $this->db->get_field_sql(
-            'SELECT COALESCE(MAX(versionnumber), 0) FROM {local_scriptmgr_scriptver} WHERE scriptid = ?',
+            'SELECT COALESCE(MAX(versionnumber), 0) FROM {local_scriptmanager_scriptver} WHERE scriptid = ?',
             [$id]
         );
-        $versionid = $this->db->insert_record('local_scriptmgr_scriptver', (object) [
+        $versionid = $this->db->insert_record('local_scriptmanager_scriptver', (object) [
             'scriptid' => $id,
             'versionnumber' => $number,
             'code' => $code,
@@ -306,7 +306,7 @@ final class script_repository {
             'publishedby' => $userid,
             'timepublished' => $now,
         ]);
-        $this->db->update_record('local_scriptmgr_script', (object) [
+        $this->db->update_record('local_scriptmanager_script', (object) [
             'id' => $id,
             'publishedversionid' => $versionid,
             'draftrevisionnote' => '',

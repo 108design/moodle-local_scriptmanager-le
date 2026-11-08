@@ -32,7 +32,7 @@ final class privacy_provider_test extends \advanced_testcase {
         $editor = $this->getDataGenerator()->create_user();
         $context = \context_system::instance();
         $now = time();
-        $id = $DB->insert_record('local_scriptmgr_script', (object) [
+        $id = $DB->insert_record('local_scriptmanager_script', (object) [
             'name' => 'Privacy script', 'identifier' => 'privacy-script', 'enabled' => 0,
             'globalenabled' => 0, 'dashboardenabled' => 0, 'sitehomeenabled' => 0,
             'draftcode' => 'window.__privacyTest = true;', 'draftversion' => 1,
@@ -50,7 +50,7 @@ final class privacy_provider_test extends \advanced_testcase {
         writer::reset();
         provider::export_user_data(new approved_contextlist($creator, 'local_scriptmanager', [$context->id]));
         $data = writer::with_context($context)->get_data([
-            get_string('pluginname', 'local_scriptmanager'), 'local_scriptmgr_script', (string) $id,
+            get_string('pluginname', 'local_scriptmanager'), 'local_scriptmanager_script', (string) $id,
         ]);
         $this->assertSame('Privacy script', $data->name);
         $this->assertSame('createdby', $data->user_relations);
@@ -58,7 +58,7 @@ final class privacy_provider_test extends \advanced_testcase {
         provider::delete_data_for_user(
             new approved_contextlist($creator, 'local_scriptmanager', [$context->id])
         );
-        $record = $DB->get_record('local_scriptmgr_script', ['id' => $id], '*', MUST_EXIST);
+        $record = $DB->get_record('local_scriptmanager_script', ['id' => $id], '*', MUST_EXIST);
         $this->assertSame(0, (int) $record->createdby);
         $this->assertSame((int) $editor->id, (int) $record->modifiedby);
         $this->assertSame('window.__privacyTest = true;', $record->draftcode);

@@ -66,7 +66,7 @@ final class script_repository_test extends \advanced_testcase {
         $a = $repo->publish($a->id, $USER->id);
         $second = $a->publishedversionid;
         // Legacy or injected version metadata cannot expand the fixed execution profile.
-        $DB->update_record('local_scriptmgr_scriptver', (object)['id' => $first, 'globalenabled' => 0,
+        $DB->update_record('local_scriptmanager_scriptver', (object)['id' => $first, 'globalenabled' => 0,
             'dashboardenabled' => 1, 'courseallowlist' => '42', 'dependenciesjson' => '[999]']);
         $repo->restore($a->id, $first, $USER->id);
         $a = $repo->get($a->id);
@@ -94,7 +94,7 @@ final class script_repository_test extends \advanced_testcase {
         $repo->set_enabled($a->id, false, $USER->id);
         $this->assertCount(1, $repo->get_context_candidates());
         $repo->delete($b->id);
-        $this->assertFalse($DB->record_exists('local_scriptmgr_scriptver', ['scriptid' => $b->id]));
+        $this->assertFalse($DB->record_exists('local_scriptmanager_scriptver', ['scriptid' => $b->id]));
     }
     /**
      * Verify that last saved draft wins for parallel editors.

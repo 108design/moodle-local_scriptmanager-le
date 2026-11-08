@@ -34,8 +34,8 @@ final class provider implements
 
     /** @var array<string, array<int, string>> */
     private const USER_FIELDS = [
-        'local_scriptmgr_script' => ['createdby', 'modifiedby'],
-        'local_scriptmgr_scriptver' => ['publishedby'],
+        'local_scriptmanager_script' => ['createdby', 'modifiedby'],
+        'local_scriptmanager_scriptver' => ['publishedby'],
     ];
 
     /**
@@ -45,12 +45,12 @@ final class provider implements
      * @return collection
      */
     public static function get_metadata(collection $collection): collection {
-        $collection->add_database_table('local_scriptmgr_script', [
+        $collection->add_database_table('local_scriptmanager_script', [
             'name' => 'privacy:metadata:name', 'description' => 'privacy:metadata:description',
             'draftcode' => 'privacy:metadata:code', 'createdby' => 'privacy:metadata:userid',
             'modifiedby' => 'privacy:metadata:userid',
         ], 'privacy:metadata:scripts');
-        $collection->add_database_table('local_scriptmgr_scriptver', [
+        $collection->add_database_table('local_scriptmanager_scriptver', [
             'code' => 'privacy:metadata:code', 'publishedby' => 'privacy:metadata:userid',
             'revisionnote' => 'privacy:metadata:revisionnote',
         ], 'privacy:metadata:scriptversions');

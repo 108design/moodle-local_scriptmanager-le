@@ -176,6 +176,7 @@ $string['scriptdeactivated'] = 'Das Skript wurde deaktiviert.';
 // Shared independent signed update protection.
 $string['updateguard_heading'] = 'Update angehalten';
 $string['updateguard_component'] = 'Das Paket für {$a} wurde abgewiesen.';
+$string['unsupportedupgrade'] = 'Dieses Paket kann die installierte Version nicht aktualisieren. Stelle die vorherigen Plugin-Dateien wieder her. Installiere diese Version als neue Kopie von Script Manager.';
 $string['updateguard_hint'] = 'Verwende ein freigegebenes Paket für die installierte Ausgabe. Du kannst den Vorgang erneut prüfen.';
 $string['updateguard_unchanged'] = 'Dieser Vorgang hat keine Plugin-Dateien ersetzt.';
 $string['updateguard_help'] = 'Das installierte Plugin prüft vor dem Ersetzen die Herausgebersignatur, den Paketinhalt, den erlaubten Updatekanal und die Kompatibilität. Eine gültige Signatur erlaubt keinen Wechsel auf eine andere Ausgabe. Wird ein Paket abgewiesen, stoppt die gesamte Sammelaktion.';

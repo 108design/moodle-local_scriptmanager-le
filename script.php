@@ -23,8 +23,8 @@ if (!\local_scriptmanager\local\authority::active()) {
 
 $scriptid = required_param('id', PARAM_INT);
 $versionid = required_param('version', PARAM_INT);
-$sql = 'SELECT v.*, s.identifier FROM {local_scriptmgr_scriptver} v
-          JOIN {local_scriptmgr_script} s ON s.id = v.scriptid
+$sql = 'SELECT v.*, s.identifier FROM {local_scriptmanager_scriptver} v
+          JOIN {local_scriptmanager_script} s ON s.id = v.scriptid
          WHERE v.id = :versionid AND v.scriptid = :scriptid AND s.enabled = 1';
 $version = $DB->get_record_sql($sql, ['versionid' => $versionid, 'scriptid' => $scriptid]);
 if (!$version) {

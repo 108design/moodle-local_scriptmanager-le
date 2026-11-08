@@ -4,6 +4,7 @@
   "minimum_guard_version": 2,
   "component": "local_scriptmanager",
   "edition": "le",
+  "upgrade_family": "scriptmanager-schema-v2",
   "channels": [
     "zip",
     "marketplace",
