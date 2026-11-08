@@ -25,8 +25,9 @@ final class table_presentation {
      * @return void
      */
     public static function init(): void {
-        global $PAGE;
-        $PAGE->requires->js_call_amd('local_scriptmanager/table_presentation', 'init');
+        global $CFG, $PAGE;
+        $module = (int)$CFG->version >= 2026100500 ? 'table_presentation_53' : 'table_presentation';
+        $PAGE->requires->js_call_amd('local_scriptmanager/' . $module, 'init');
     }
 
     /**

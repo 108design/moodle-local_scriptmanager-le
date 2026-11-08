@@ -89,11 +89,12 @@ final class script_repository {
      * @return stdClass
      */
     private function save_owned(stdClass $record, bool $publish, int $userid): stdClass {
-        // Accept only script fields. Scope and dependency values are fixed compatibility data.
+        // Only the Frontpage opt-in is editable. Other scope and dependency values are fixed.
         $record = (object) array_intersect_key((array) $record, array_flip([
-            'id', 'name', 'identifier', 'description', 'enabled', 'draftcode', 'draftrevisionnote',
+            'id', 'name', 'identifier', 'description', 'enabled', 'allowfrontpage', 'draftcode', 'draftrevisionnote',
         ]));
         $record = (object) ((array) $record + ['description' => '', 'enabled' => 0, 'draftrevisionnote' => '']);
+        $record->allowfrontpage = (int) !empty($record->allowfrontpage);
         if (strlen((string) $record->draftcode) > 500000) {
             throw new \invalid_parameter_exception('Script too large.');
         }
@@ -233,6 +234,7 @@ final class script_repository {
         );
         $script = $this->get($id);
         $script->draftcode = $version->code;
+        $script->allowfrontpage = $version->allowfrontpage;
         $script->draftrevisionnote = '';
         $this->save($script, false, $userid);
         return $version;
@@ -262,13 +264,15 @@ final class script_repository {
     /**
      * Return enabled published scripts eligible for runtime selection.
      *
+     * @param bool $frontpageonly Require the published Frontpage opt-in.
      * @return array
      */
-    public function get_context_candidates(): array {
+    public function get_context_candidates(bool $frontpageonly = false): array {
+        $frontpagefilter = $frontpageonly ? ' AND v.allowfrontpage = 1' : '';
         return $this->db->get_records_sql('SELECT s.id, s.name, s.identifier, s.enabled,
             v.versionnumber, v.id AS versionid FROM {local_scriptmanager_script} s
             JOIN {local_scriptmanager_scriptver} v ON v.id = s.publishedversionid
-            WHERE s.enabled = 1 ORDER BY s.name ASC');
+            WHERE s.enabled = 1' . $frontpagefilter . ' ORDER BY s.name ASC');
     }
 
     /**
@@ -301,6 +305,7 @@ final class script_repository {
             'scriptid' => $id,
             'versionnumber' => $number,
             'code' => $code,
+            'allowfrontpage' => (int) $script->allowfrontpage,
             ...self::profile(),
             'revisionnote' => $script->draftrevisionnote,
             'publishedby' => $userid,

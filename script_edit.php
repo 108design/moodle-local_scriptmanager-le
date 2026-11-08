@@ -32,7 +32,7 @@ $url = new moodle_url('/local/scriptmanager/script_edit.php', $id ? ['id' => $id
 admin_externalpage_setup('local_scriptmanager');
 $repository = factory::script_repository();
 $script = $id ? $repository->get($id) : (object) [
-    'id' => 0, 'name' => '', 'identifier' => '', 'description' => '', 'enabled' => 0,
+    'id' => 0, 'name' => '', 'identifier' => '', 'description' => '', 'enabled' => 0, 'allowfrontpage' => 0,
     'draftrevisionnote' => '',
     'draftcode' => "// context.root is the current document root.\n"
         . "// context.pageType, courseId and categoryId identify the Moodle context.\n",
@@ -62,7 +62,7 @@ if ($data = $form->get_data()) {
     }
     $record = (object) ['id' => (int) $data->id, 'name' => trim($data->name), 'identifier' => $identifier,
         'description' => trim((string) $data->description), 'enabled' => (int) $data->enabled,
-        'draftrevisionnote' => trim((string) $data->draftrevisionnote),
+        'allowfrontpage' => (int) $data->allowfrontpage, 'draftrevisionnote' => trim((string) $data->draftrevisionnote),
         'draftcode' => (string) $data->draftcode];
     $repository->save($record, !empty($data->savepublish), (int) $USER->id);
     redirect(

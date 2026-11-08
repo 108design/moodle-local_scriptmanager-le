@@ -209,4 +209,46 @@ final class script_repository_test extends \advanced_testcase {
             $this->assertSame([], $resolver->resolve($page), $layout);
         }
     }
+
+    /**
+     * The published version controls Frontpage delivery independently of its draft.
+     */
+    public function test_frontpage_delivery_requires_a_published_opt_in(): void {
+        global $USER;
+        $repo = factory::script_repository();
+        $script = $repo->save((object) [
+            'name' => 'Alpha', 'identifier' => 'alpha', 'draftcode' => 'void 0;', 'enabled' => 1,
+        ], true, $USER->id);
+        $firstversion = $script->publishedversionid;
+        $resolver = new context_script_resolver($repo);
+        $page = new \moodle_page();
+        $page->set_context(\context_system::instance());
+        $page->set_pagetype('local-frontpage-view');
+        $page->set_pagelayout('standard');
+        $page->set_url(new \moodle_url('/local/frontpage/view.php', ['id' => 1]));
+        $this->assertSame([], $resolver->resolve($page));
+
+        $script->allowfrontpage = 1;
+        $repo->save($script, false, $USER->id);
+        $this->assertSame([], $resolver->resolve($page));
+        $repo->publish($script->id, $USER->id);
+        $this->assertSame([$script->id], array_keys($resolver->resolve($page)));
+        foreach ([['preview' => 1], ['revisionid' => 2]] as $params) {
+            $page->set_url(new \moodle_url('/local/frontpage/view.php', ['id' => 1] + $params));
+            $this->assertSame([], $resolver->resolve($page));
+        }
+        $page->set_pagetype('local-frontpage-edit');
+        $page->set_url(new \moodle_url('/local/frontpage/edit.php', ['id' => 1]));
+        $this->assertSame([], $resolver->resolve($page));
+        $page->set_pagetype('mod-frontpage-view');
+        $page->set_pagelayout('incourse');
+        $page->set_url(new \moodle_url('/mod/frontpage/view.php', ['id' => 1]));
+        $this->assertSame([$script->id], array_keys($resolver->resolve($page)));
+
+        $repo->restore($script->id, $firstversion, $USER->id);
+        $this->assertEmpty($repo->get($script->id)->allowfrontpage);
+        $this->assertSame([$script->id], array_keys($resolver->resolve($page)));
+        $repo->publish($script->id, $USER->id);
+        $this->assertSame([], $resolver->resolve($page));
+    }
 }

@@ -1,3 +1,4 @@
+// Copyright (C) 2026 Andreas Giesen. See LICENSE.md.
 import {basicSetup, EditorView} from 'codemirror';
 import {EditorState} from '@codemirror/state';
 

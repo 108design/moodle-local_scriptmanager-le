@@ -10,6 +10,8 @@
 // Copyright (C) 2026 Andreas Giesen <andreas@108design.com>. See LICENSE.md.
 $string['actionbarmore'] = 'Weitere Aktionen';
 $string['activatescript'] = 'Skript aktivieren';
+$string['allowfrontpage'] = 'Auch auf Frontpage-Seiten ausführen';
+$string['allowfrontpage_help'] = 'Bezieht die Frontpage-Startseite für Gäste und Mitglieder sowie die normale Ansicht von Frontpage-Kursaktivitäten ein. Die Option ist standardmäßig aus und greift erst mit der Veröffentlichung.';
 $string['contexthelptopics'] = 'Hilfethemen';
 $string['createscript'] = 'Skript erstellen';
 $string['deactivatescript'] = 'Skript deaktivieren';
@@ -17,9 +19,9 @@ $string['deletescript'] = 'Skript löschen';
 $string['deletescriptconfirm'] = ('„{$a}“ und sämtliche veröffentlichten Fassungen endgültig löschen? '
     . 'Bereits ausgeführter Code wird dadurch nicht rückgängig gemacht.');
 $string['editscript'] = 'Skript bearbeiten';
-$string['fixedprofile'] = ('Aktive veröffentlichte Skripte laufen am Footer-Hook auf zugelassenen '
-    . 'normalen Moodle-Seiten. Verwaltung, Anmeldung, Authentifizierung, Tools, '
-    . 'dieser Manager, Frontpage-Seiten und Sonderlayouts sind ausgeschlossen.');
+$string['fixedprofile'] = ('Aktive veröffentlichte Skripte laufen auf normalen Moodle-Seiten. '
+    . 'Für Frontpage-Ansichten wähle „Auch auf Frontpage-Seiten ausführen“ und veröffentliche das Skript. '
+    . 'Editoren und Vorschauen bleiben ausgenommen.');
 $string['loadrevisionineditor'] = 'Revision im Editor laden';
 $string['managerdateformat'] = '%d. %b %Y, %H:%M';
 $string['managescripts'] = 'Skriptmanager';
@@ -44,13 +46,14 @@ $string['pagehelp_scriptbasics_article'] = ('<p>Lege benannte Snippets mit einde
     . 'zuletzt gespeicherte Entwurf gewinnt.</p>');
 $string['pagehelp_scriptbasics_help'] = 'Lege benannte Snippets mit eindeutigen Kennungen an.';
 $string['pagehelp_scriptexecution'] = 'Ausführung und aktualisierte Inhalte';
-$string['pagehelp_scriptexecution_article'] = ('<p>Aktive veröffentlichte Snippets laufen über '
-    . 'before_standard_footer_html_generation auf zugelassenen normalen '
-    . 'Moodle-Seiten. Ausgeschlossen sind Verwaltungs-, Anmelde-, '
-    . 'Authentifizierungs-, Tool-, Manager- und Frontpage-Seitentypen, die '
-    . 'Installation sowie embedded-, popup-, maintenance-, print- und '
-    . 'redirect-Layouts. Anmeldung und Manager bleiben zur Wiederherstellung '
-    . 'erreichbar. Ein Zeitpunkt nach DOMContentLoaded wird nicht garantiert. '
+$string['pagehelp_scriptexecution_article'] = ('<p>Aktive veröffentlichte Skripte laufen am Footer-Hook auf '
+    . 'normalen Moodle-Seiten. Für die Frontpage-Startseite von Gästen und Mitgliedern und die normale Ansicht '
+    . 'von Frontpage-Kursaktivitäten wähle <strong>Auch auf Frontpage-Seiten ausführen</strong> und '
+    . 'veröffentliche das Skript. Die Option ist standardmäßig aus. Frontpage-Editoren, Entwurfs- und '
+    . 'Versionsvorschauen bleiben ausgenommen.</p><p>Skripte bleiben auch bei der Installation, in der Verwaltung, '
+    . 'bei der Anmeldung, in der Authentifizierung, in Tools, im Skriptmanager und in den Layouts embedded, '
+    . 'popup, maintenance, print und redirect aus. Wenn ein Skript eine Seite stört, kannst Du Dich weiterhin '
+    . 'anmelden und es im Skriptmanager abschalten. Ein Zeitpunkt nach DOMContentLoaded wird nicht garantiert. '
     . 'context enthält root, pageType, pageId, courseId und categoryId. Bei Moodles '
     . 'Inhaltsaktualisierungsereignis werden registrierte Snippets mit dem '
     . 'geänderten root erneut aufgerufen; schreibe wiederholbar initialisierbaren '
@@ -70,7 +73,7 @@ $string['pagehelp_scriptidentity_help'] = ('Verwende einen verständlichen Namen
     . 'Buchstaben, Ziffern, Unterstrichen oder Bindestrichen.');
 $string['pagehelp_scriptpublication'] = 'Entwurf, Veröffentlichung und Aktivstatus';
 $string['pagehelp_scriptpublication_article'] = (
-        '<p>Entwurf speichern verändert veröffentlichten Code nicht. Speichern und '
+        '<p>Entwurf speichern ändert weder den veröffentlichten Code noch seine Frontpage-Einstellung. Speichern und '
     . 'veröffentlichen erstellt eine unveränderliche Version. Der Aktivschalter '
     . 'gilt unabhängig davon. Deaktivierte Skripte werden künftig nicht mehr '
     . 'ausgeliefert; bereits ausgeführte oder gecachte Dateien können weiter '

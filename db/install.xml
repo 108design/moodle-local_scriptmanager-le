@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/scriptmanager/db" VERSION="2026010100" COMMENT="XMLDB file for the local Script Manager">
+<XMLDB PATH="local/scriptmanager/db" VERSION="2026010106" COMMENT="XMLDB file for the local Script Manager">
   <TABLES>
     <TABLE NAME="local_scriptmanager_script" COMMENT="Managed JavaScript drafts and metadata">
       <FIELDS>
@@ -8,6 +8,7 @@
         <FIELD NAME="identifier" TYPE="char" LENGTH="100" NOTNULL="true"/>
         <FIELD NAME="description" TYPE="text" NOTNULL="false"/>
         <FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="allowfrontpage" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
         <FIELD NAME="globalenabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
         <FIELD NAME="dashboardenabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
         <FIELD NAME="sitehomeenabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
@@ -34,6 +35,7 @@
         <FIELD NAME="scriptid" TYPE="int" LENGTH="10" NOTNULL="true"/>
         <FIELD NAME="versionnumber" TYPE="int" LENGTH="10" NOTNULL="true"/>
         <FIELD NAME="code" TYPE="text" NOTNULL="true"/>
+        <FIELD NAME="allowfrontpage" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
         <FIELD NAME="globalenabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
         <FIELD NAME="dashboardenabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
         <FIELD NAME="sitehomeenabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Resolves published managed scripts for safe non-Frontpage Moodle page contexts.
+ * Resolves published managed scripts for permitted Moodle page contexts.
  *
  * @package   local_scriptmanager
  * @copyright 2026 Andreas Giesen <andreas@108design.com>
@@ -19,7 +19,7 @@ use local_scriptmanager\local\persistence\script_repository;
 use moodle_page;
 
 /**
- * Resolves published managed scripts for safe non-Frontpage Moodle page contexts.
+ * Resolves published managed scripts for permitted Moodle page contexts.
  */
 final class context_script_resolver {
     /**
@@ -42,7 +42,10 @@ final class context_script_resolver {
         if (!authority::active() || !$this->is_safe_page($page)) {
             return [];
         }
-        return $this->repository->get_context_candidates();
+        if (!str_starts_with($page->pagetype, 'local-frontpage-') && !str_starts_with($page->pagetype, 'mod-frontpage-')) {
+            return $this->repository->get_context_candidates();
+        }
+        return $this->is_frontpage_view($page) ? $this->repository->get_context_candidates(true) : [];
     }
 
     /**
@@ -78,8 +81,6 @@ final class context_script_resolver {
             'auth-',
             'tool-',
             'local-scriptmanager-',
-            'local-frontpage-',
-            'mod-frontpage-',
             ] as $prefix
         ) {
             if (str_starts_with($pagetype, $prefix)) {
@@ -88,5 +89,27 @@ final class context_script_resolver {
         }
         $pagelayout = method_exists($page, 'get_pagelayout') ? $page->get_pagelayout() : $page->pagelayout;
         return !in_array((string) $pagelayout, ['embedded', 'popup', 'maintenance', 'print', 'redirect'], true);
+    }
+
+    /**
+     * Allow only the normal Frontpage view controllers, never their editor or preview routes.
+     *
+     * @param moodle_page $page Native page context.
+     * @return bool
+     */
+    private function is_frontpage_view(moodle_page $page): bool {
+        if (!$page->has_set_url()) {
+            return false;
+        }
+        $url = $page->url;
+        if ($page->pagetype === 'mod-frontpage-view') {
+            return $page->pagelayout === 'incourse'
+                && $url->compare(new \moodle_url('/mod/frontpage/view.php'), URL_MATCH_BASE);
+        }
+        return $page->pagetype === 'local-frontpage-view'
+            && $page->pagelayout === 'standard'
+            && $url->compare(new \moodle_url('/local/frontpage/view.php'), URL_MATCH_BASE)
+            && !$url->get_param('preview')
+            && !$url->get_param('revisionid');
     }
 }

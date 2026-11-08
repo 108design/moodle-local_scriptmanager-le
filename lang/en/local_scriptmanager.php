@@ -10,6 +10,8 @@
 // Copyright (C) 2026 Andreas Giesen <andreas@108design.com>. See LICENSE.md.
 $string['actionbarmore'] = 'More actions';
 $string['activatescript'] = 'Activate Script';
+$string['allowfrontpage'] = 'Also Run on Frontpage Pages';
+$string['allowfrontpage_help'] = 'Include the Frontpage home for guests and members and normal Frontpage Course Activity views. This option is off by default and takes effect when you publish the script.';
 $string['contexthelptopics'] = 'Help topics';
 $string['createscript'] = 'Create Script';
 $string['deactivatescript'] = 'Deactivate Script';
@@ -17,9 +19,8 @@ $string['deletescript'] = 'Delete Script';
 $string['deletescriptconfirm'] = ('Permanently delete “{$a}” and all its published versions? This cannot '
     . 'undo code that has already run.');
 $string['editscript'] = 'Edit Script';
-$string['fixedprofile'] = ('Enabled, published scripts run at the footer hook on permitted normal Moodle '
-    . 'pages. Administration, login, authentication, tools, this manager, Frontpage '
-    . 'pages and special layouts are excluded.');
+$string['fixedprofile'] = ('Enabled, published scripts run on normal Moodle pages. To include Frontpage views, '
+    . 'select Also Run on Frontpage Pages and publish. Editors and previews remain excluded.');
 $string['loadrevisionineditor'] = 'Load revision in editor';
 $string['managerdateformat'] = '%d %b %Y, %H:%M';
 $string['managescripts'] = 'Script Manager';
@@ -46,11 +47,13 @@ $string['pagehelp_scriptbasics_article'] = (
 $string['pagehelp_scriptbasics_help'] = 'Create named snippets with unique identifiers.';
 $string['pagehelp_scriptexecution'] = 'Execution and updated content';
 $string['pagehelp_scriptexecution_article'] = (
-        '<p>Active published snippets run at before_standard_footer_html_generation on '
-    . 'permitted normal Moodle pages. Administration, login, authentication, tool, '
-    . 'manager and Frontpage page types, installation and embedded, popup, '
-    . 'maintenance, print and redirect layouts are excluded. The login and manager '
-    . 'routes remain available for recovery. There is no guaranteed DOMContentLoaded '
+        '<p>Enabled, published scripts run at the footer hook on normal Moodle pages. To include the Frontpage '
+    . 'home for guests and members and normal Frontpage Course Activity views, select '
+    . '<strong>Also Run on Frontpage Pages</strong> and publish the script. This option is off by default. '
+    . 'Frontpage editors, draft previews and version previews stay excluded.</p>'
+    . '<p>Scripts also stay off during installation and on administration, login, authentication and tool pages, '
+    . 'in Script Manager, and in embedded, popup, maintenance, print and redirect layouts. '
+    . 'You can still sign in and disable a script if it breaks another page. There is no guaranteed DOMContentLoaded '
     . 'timing. context contains root, pageType, pageId, courseId and categoryId. '
     . 'Moodle content-updated events re-run registered snippets with the changed '
     . 'root; write repeatable initialisers. JavaScript can access the page and '
@@ -71,7 +74,7 @@ $string['pagehelp_scriptidentity_article'] = (
 $string['pagehelp_scriptidentity_help'] = 'Use a descriptive name and a unique identifier containing letters, digits, underscores or hyphens.';
 $string['pagehelp_scriptpublication'] = 'Draft, publication and enablement';
 $string['pagehelp_scriptpublication_article'] = (
-        '<p>Saving a draft does not change published code. Save and Publish creates an '
+        '<p>Saving a draft does not change the published code or its Frontpage setting. Save and Publish creates an '
     . 'immutable version. Enablement is a separate switch. Disabled scripts are '
     . 'excluded from future delivery; previously executed or cached files may remain '
     . 'effective. Delete requires confirmation and permanently removes the script '

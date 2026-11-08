@@ -48,6 +48,9 @@ final class script_form extends \moodleform {
         $mform->addElement('textarea', 'description', get_string('description'), ['rows' => 3]);
         $mform->setType('description', PARAM_TEXT);
         $mform->addElement('advcheckbox', 'enabled', get_string('scriptenabled', 'local_scriptmanager'));
+        $mform->addElement('advcheckbox', 'allowfrontpage', get_string('allowfrontpage', 'local_scriptmanager'));
+        $mform->setDefault('allowfrontpage', 0);
+        $mform->addHelpButton('allowfrontpage', 'allowfrontpage', 'local_scriptmanager');
 
         $mform->addElement('static', 'fixedprofile', '', get_string('fixedprofile', 'local_scriptmanager'));
         $mform->addElement('static', 'securitynotice', '', get_string('scriptsecuritynotice', 'local_scriptmanager'));
