@@ -1,6 +1,23 @@
-# Script Manager
+<p align="center">
+  <img src="docs/branding/logo.svg" alt="Script Manager logo" width="125" height="125">
+</p>
 
-Manage named JavaScript snippets for trusted Moodle administrators. Moodle 4.5 or later is required.
+# Script Manager LE
+
+Manage JavaScript snippets for trusted Moodle administrators.
+
+<!--
+## Screenshots
+
+<details>
+<summary>View screenshots</summary>
+
+</details>
+-->
+
+## Installation
+
+Supports Moodle 4.5 through 5.3. Download the [signed beta ZIP](https://github.com/108design/moodle-local_scriptmanager-le/releases) and install it as `local/scriptmanager`.
 
 Save drafts, publish immutable versions, compare revisions and restore an earlier version into the editor. Restoring requires a deliberate publication before the restored code becomes live. Enable or disable each script separately. New snippets start disabled and unpublished.
 
@@ -12,4 +29,4 @@ Scripts run with each visitor’s browser permissions and can access the page an
 
 Concurrent editors use the last saved draft; there is no optimistic draft conflict check.
 
-The included functions are available without payment or activation under LICENSE.md. The 108design source-available licence, its Moodle Marketplace permission and third-party CodeMirror notices apply.
+See [LICENSE.md](LICENSE.md) for the 108design Software License, its Moodle Marketplace permission and third-party CodeMirror notices.
