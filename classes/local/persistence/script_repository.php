@@ -1,4 +1,5 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
 /**
  * Persistence boundary for trusted managed scripts.
  *

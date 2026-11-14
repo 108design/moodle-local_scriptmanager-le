@@ -1,4 +1,5 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
 /**
  * Edit a managed script draft and publish it explicitly.
  *

@@ -1,4 +1,5 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
 /**
  * Privacy provider for shared scripts and revisions and their administrator attribution.
  *

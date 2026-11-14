@@ -1,4 +1,5 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
 /**
  * Shared native search bar; the consumer supplies fields, labels and result markup.
  *
