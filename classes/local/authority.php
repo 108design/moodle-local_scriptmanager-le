@@ -1,4 +1,5 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
 /**
  * Runtime ownership survives licence expiry; it never follows saved content.
  *

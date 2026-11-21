@@ -1,4 +1,5 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
 /**
  * Connect native Moodle hooks to the component runtime.
  *
@@ -34,16 +35,13 @@ final class hook_callbacks {
             return;
         }
         $context = $resolver->context_data($PAGE);
-        $html = \html_writer::tag('script', '', [
-            'src' => (new \moodle_url('/local/scriptmanager/js/script_runtime.js'))->out(false),
-            'data-page-type' => $context['pageType'], 'data-course-id' => $context['courseId'],
-            'data-category-id' => $context['categoryId'],
-        ]);
+        $PAGE->requires->js_call_amd('local_scriptmanager/script_runtime', 'init', [$context]);
         foreach ($scripts as $script) {
-            $html .= \html_writer::tag('script', '', ['src' => (new \moodle_url('/local/scriptmanager/script.php', [
+            $PAGE->requires->js(new \moodle_url('/local/scriptmanager/script.php', [
                 'id' => $script->id, 'version' => $script->versionid, 'v' => $script->versionnumber,
-            ]))->out(false)]);
+                // Bump this wrapper revision when changing immutable script.php output.
+                'runtime' => 2,
+            ]));
         }
-        $hook->add_html($html);
     }
 }

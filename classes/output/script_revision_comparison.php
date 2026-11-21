@@ -1,4 +1,5 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
 /**
  * Authorised, read-only revision chooser and escaped code diff.
  *

@@ -1,4 +1,5 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
 /**
  * English language strings for Script Manager.
  *
@@ -16,78 +17,34 @@ $string['contexthelptopics'] = 'Help topics';
 $string['createscript'] = 'Create Script';
 $string['deactivatescript'] = 'Deactivate Script';
 $string['deletescript'] = 'Delete Script';
-$string['deletescriptconfirm'] = ('Permanently delete “{$a}” and all its published versions? This cannot '
-    . 'undo code that has already run.');
+$string['deletescriptconfirm'] = 'Permanently delete “{$a}” and all its published versions? This cannot undo code that has already run.';
 $string['editscript'] = 'Edit Script';
-$string['fixedprofile'] = ('Enabled, published scripts run on normal Moodle pages. To include Frontpage views, '
-    . 'select Also Run on Frontpage Pages and publish. Editors and previews remain excluded.');
+$string['fixedprofile'] = 'Enabled, published scripts run on normal Moodle pages. To include Frontpage views, select Also Run on Frontpage Pages and publish. Editors and previews remain excluded.';
 $string['loadrevisionineditor'] = 'Load revision in editor';
 $string['managerdateformat'] = '%d %b %Y, %H:%M';
 $string['managescripts'] = 'Script Manager';
 $string['moduleinactive'] = 'This manager is inactive. {$a} owns the existing script configuration.';
 $string['moduleopenowner'] = 'Open {$a}';
-$string['moduleownershipconflict'] = ('The script configuration has conflicting ownership. Review the existing '
-    . 'assignment; it will not switch automatically.');
+$string['moduleownershipconflict'] = 'The script configuration has conflicting ownership. Review the existing assignment; it will not switch automatically.';
 $string['noscripts'] = 'No managed scripts have been created.';
 $string['pagehelp_moduleownership'] = 'Existing ownership';
-$string['pagehelp_moduleownership_article'] = (
-        '<p>Existing assignments remain authoritative. If another host owns this '
-    . 'configuration, this manager does not take it over automatically.</p>'
-    );
+$string['pagehelp_moduleownership_article'] = '<p>Existing assignments remain authoritative. If another host owns this configuration, this manager does not take it over automatically.</p>';
 $string['pagehelp_moduleownership_help'] = 'Existing assignments remain authoritative.';
 $string['pagehelp_more'] = 'More in the help panel';
 $string['pagehelp_scriptbasics'] = 'Script list and editor';
-$string['pagehelp_scriptbasics_article'] = (
-        '<p>Create named snippets with unique identifiers. Search by name, identifier '
-    . 'or description and filter by enabled or published status. New snippets start '
-    . 'disabled with no published version. Saving a draft keeps the current live '
-    . 'version. Several open editors can overwrite one another: the last saved draft '
-    . 'wins.</p>'
-    );
+$string['pagehelp_scriptbasics_article'] = '<p>Create named snippets with unique identifiers. Search by name, identifier or description and filter by enabled or published status. New snippets start disabled with no published version. Saving a draft keeps the current live version. Several open editors can overwrite one another: the last saved draft wins.</p>';
 $string['pagehelp_scriptbasics_help'] = 'Create named snippets with unique identifiers.';
 $string['pagehelp_scriptexecution'] = 'Execution and updated content';
-$string['pagehelp_scriptexecution_article'] = (
-        '<p>Enabled, published scripts run at the footer hook on normal Moodle pages. To include the Frontpage '
-    . 'home for guests and members and normal Frontpage Course Activity views, select '
-    . '<strong>Also Run on Frontpage Pages</strong> and publish the script. This option is off by default. '
-    . 'Frontpage editors, draft previews and version previews stay excluded.</p>'
-    . '<p>Scripts also stay off during installation and on administration, login, authentication and tool pages, '
-    . 'in Script Manager, and in embedded, popup, maintenance, print and redirect layouts. '
-    . 'You can still sign in and disable a script if it breaks another page. There is no guaranteed DOMContentLoaded '
-    . 'timing. context contains root, pageType, pageId, courseId and categoryId. '
-    . 'Moodle content-updated events re-run registered snippets with the changed '
-    . 'root; write repeatable initialisers. JavaScript can access the page and '
-    . 'network. Synchronous errors are logged; loops, asynchronous errors and '
-    . 'changes already made are not isolated. Alphabetical selection does not wait '
-    . 'for asynchronous work in a preceding snippet.</p>'
-    );
-$string['pagehelp_scriptexecution_help'] = (
-        'Active published snippets run at before_standard_footer_html_generation on '
-    . 'permitted normal Moodle pages.'
-    );
+$string['pagehelp_scriptexecution_article'] = '<p>Enabled, published scripts run at the footer hook on normal Moodle pages. To include the Frontpage home for guests and members and normal Frontpage Course Activity views, select <strong>Also Run on Frontpage Pages</strong> and publish the script. This option is off by default. Frontpage editors, draft previews and version previews stay excluded.</p><p>Scripts also stay off during installation and on administration, login, authentication and tool pages, in Script Manager, and in embedded, popup, maintenance, print and redirect layouts. You can still sign in and disable a script if it breaks another page. There is no guaranteed DOMContentLoaded timing. context contains root, pageType, pageId, courseId and categoryId. Moodle content-updated events re-run registered snippets with the changed root; write repeatable initialisers. JavaScript can access the page and network. Synchronous errors are logged; loops, asynchronous errors and changes already made are not isolated. Alphabetical selection does not wait for asynchronous work in a preceding snippet.</p>';
+$string['pagehelp_scriptexecution_help'] = 'Active published snippets run at before_standard_footer_html_generation on permitted normal Moodle pages.';
 $string['pagehelp_scriptidentity'] = 'Names and identifiers';
-$string['pagehelp_scriptidentity_article'] = (
-        '<p>Use a descriptive name and a unique identifier containing letters, digits, '
-    . 'underscores or hyphens. The identifier names the runtime registration. Keep '
-    . 'it stable once scripts are in use.</p>'
-    );
+$string['pagehelp_scriptidentity_article'] = '<p>Use a descriptive name and a unique identifier containing letters, digits, underscores or hyphens. The identifier names the runtime registration. Keep it stable once scripts are in use.</p>';
 $string['pagehelp_scriptidentity_help'] = 'Use a descriptive name and a unique identifier containing letters, digits, underscores or hyphens.';
 $string['pagehelp_scriptpublication'] = 'Draft, publication and enablement';
-$string['pagehelp_scriptpublication_article'] = (
-        '<p>Saving a draft does not change the published code or its Frontpage setting. Save and Publish creates an '
-    . 'immutable version. Enablement is a separate switch. Disabled scripts are '
-    . 'excluded from future delivery; previously executed or cached files may remain '
-    . 'effective. Delete requires confirmation and permanently removes the script '
-    . 'and its versions.</p>'
-    );
+$string['pagehelp_scriptpublication_article'] = '<p>Saving a draft does not change the published code or its Frontpage setting. Save and Publish creates an immutable version. Enablement is a separate switch. Disabled scripts are excluded from future delivery; previously executed or cached files may remain effective. Delete requires confirmation and permanently removes the script and its versions.</p>';
 $string['pagehelp_scriptpublication_help'] = 'Saving a draft does not change published code.';
 $string['pagehelp_scriptrevisions'] = 'Versions, comparison and restore';
-$string['pagehelp_scriptrevisions_article'] = (
-        '<p>Published versions record code, note, publisher and time. Compare two '
-    . 'versions or inspect their source. Restore replaces the current draft with the '
-    . 'selected code. Review it and deliberately publish again; restoring does not '
-    . 'switch the live version. It also does not undo effects of earlier code.</p>'
-    );
+$string['pagehelp_scriptrevisions_article'] = '<p>Published versions record code, note, publisher and time. Compare two versions or inspect their source. Restore replaces the current draft with the selected code. Review it and deliberately publish again; restoring does not switch the live version. It also does not undo effects of earlier code.</p>';
 $string['pagehelp_scriptrevisions_help'] = 'Published versions record code, note, publisher and time.';
 $string['pagehelp_scripts_title'] = 'Script Manager Help';
 $string['pluginname'] = 'Script Manager';
@@ -130,9 +87,7 @@ $string['scriptenabled'] = 'Enabled';
 $string['scriptidentifier'] = 'Identifier';
 $string['scriptidentifierexists'] = 'This script identifier is already in use.';
 $string['scriptmanager:manage'] = 'Manage trusted JavaScript snippets';
-$string['scriptmanagernotice'] = ('Scripts run as trusted administrator code. Save a draft, then publish it '
-    . 'deliberately. Enablement controls future delivery; already executed or cached '
-    . 'code is not revoked.');
+$string['scriptmanagernotice'] = 'Scripts run as trusted administrator code. Save a draft, then publish it deliberately. Enablement controls future delivery; already executed or cached code is not revoked.';
 $string['scriptname'] = 'Script name';
 $string['scriptname_help'] = 'A descriptive name shown in the script list. Scripts are selected alphabetically by this name.';
 $string['scriptpublication'] = 'Publication';
@@ -140,17 +95,10 @@ $string['scriptpublished'] = 'Published version available';
 $string['scriptpublishedsaved'] = 'A new immutable script version was published.';
 $string['scriptrevisionhistory'] = 'Script publication history';
 $string['scriptrevisionhistoryfor'] = 'Revisions: {$a}';
-$string['scriptrevisionhistorynotice'] = ('Loading a revision replaces the current draft and opens it in the script '
-    . 'editor. It is not published automatically; review it there and explicitly '
-    . 'publish it as a new revision.');
-$string['scriptrevisionloaded'] = ('Revision {$a} has been loaded as the current draft. Nothing has been '
-    . 'published yet. Review or edit it, then use “Publish revision as a new '
-    . 'version” to make it live.');
+$string['scriptrevisionhistorynotice'] = 'Loading a revision replaces the current draft and opens it in the script editor. It is not published automatically; review it there and explicitly publish it as a new revision.';
+$string['scriptrevisionloaded'] = 'Revision {$a} has been loaded as the current draft. Nothing has been published yet. Review or edit it, then use “Publish revision as a new version” to make it live.';
 $string['scriptrevisionnote'] = 'Revision note';
-$string['scriptsecuritynotice'] = ('<strong>Trusted JavaScript:</strong> code runs with each visitor’s browser '
-    . 'permissions. Review it before publishing and never include secrets. '
-    . 'context.root helps target updated content; it does not restrict JavaScript '
-    . 'permissions.');
+$string['scriptsecuritynotice'] = '<strong>Trusted JavaScript:</strong> code runs with each visitor’s browser permissions. Review it before publishing and never include secrets. context.root helps target updated content; it does not restrict JavaScript permissions.';
 $string['scripttoolarge'] = 'The script must not exceed 500 KB.';
 $string['scriptunpublished'] = 'Draft only';
 $string['searchbardisplay'] = 'Display';
@@ -189,3 +137,14 @@ $string['updateguard_operation'] = 'This combination of installation actions is 
 $string['updateguard_failed'] = 'The update could not be verified. No installation was started.';
 $string['updateguard_back'] = 'Return to plugin overview';
 // End shared independent signed update protection.
+
+// Optional information before native package confirmation.
+$string['updateinfo_heading'] = 'Package information: {$a}';
+$string['updateinfo_verified'] = 'The embedded publisher record matches the installed release line.';
+$string['updateinfo_missing'] = 'This package has no embedded publisher verification record.';
+$string['updateinfo_line'] = 'This package identifies a different release line from the installed plugin.';
+$string['updateinfo_mismatch'] = 'The embedded publisher record could not be verified against the installed plugin\'s publisher information.';
+$string['updateinfo_unavailable'] = 'Publisher information for the selected package could not be read.';
+$string['updateinfo_choice'] = 'Review the package source and Moodle\'s validation details before continuing. Use "{$a}" below to cancel.';
+$string['privacy:metadata:libraries'] = 'Shared JavaScript libraries and their administrator attribution.';
+$string['privacy:metadata:libraryversions'] = 'Published library versions and their publisher attribution.';

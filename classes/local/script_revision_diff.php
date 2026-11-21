@@ -1,4 +1,5 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
 /**
  * Bounded read-only line comparison. Script source is data, never executed.
  *

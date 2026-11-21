@@ -1,3 +1,4 @@
+// This file is part of Moodle - https://moodle.org/
 /**
  * This file is part of a 108design source-available software product.
  *
@@ -66,10 +67,13 @@ export const init = config => {
         toggle.setAttribute('aria-expanded', 'false');
         toggle.setAttribute('aria-label', labels.more);
         toggle.title = labels.more;
-        toggle.innerHTML = '<i class="fa fa-ellipsis-h icon" aria-hidden="true"></i>'
-            + `<span class="sr-only">${labels.more.replace(/[&<>"']/g, char => ({
-                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;',
-            })[char])}</span>`;
+        const icon = document.createElement('i');
+        icon.className = 'fa fa-ellipsis-h icon';
+        icon.setAttribute('aria-hidden', 'true');
+        const label = document.createElement('span');
+        label.className = 'sr-only';
+        label.textContent = labels.more;
+        toggle.append(icon, label);
         bar.append(overflow, toggle);
         resizeObserver?.observe(bar.closest('.table-responsive') || bar.closest('table'));
         toggle.addEventListener('click', event => {

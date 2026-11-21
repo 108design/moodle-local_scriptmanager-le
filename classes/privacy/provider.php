@@ -1,4 +1,5 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
 /**
  * Privacy provider for shared scripts and revisions and their administrator attribution.
  *
@@ -36,6 +37,8 @@ final class provider implements
     private const USER_FIELDS = [
         'local_scriptmanager_script' => ['createdby', 'modifiedby'],
         'local_scriptmanager_scriptver' => ['publishedby'],
+        'local_scriptmanager_library' => ['createdby', 'modifiedby'],
+        'local_scriptmanager_libver' => ['publishedby'],
     ];
 
     /**
@@ -54,6 +57,14 @@ final class provider implements
             'code' => 'privacy:metadata:code', 'publishedby' => 'privacy:metadata:userid',
             'revisionnote' => 'privacy:metadata:revisionnote',
         ], 'privacy:metadata:scriptversions');
+        $collection->add_database_table('local_scriptmanager_library', [
+            'name' => 'privacy:metadata:name', 'description' => 'privacy:metadata:description',
+            'draftcode' => 'privacy:metadata:code', 'createdby' => 'privacy:metadata:userid',
+            'modifiedby' => 'privacy:metadata:userid',
+        ], 'privacy:metadata:libraries');
+        $collection->add_database_table('local_scriptmanager_libver', [
+            'code' => 'privacy:metadata:code', 'publishedby' => 'privacy:metadata:userid',
+        ], 'privacy:metadata:libraryversions');
         return $collection;
     }
 

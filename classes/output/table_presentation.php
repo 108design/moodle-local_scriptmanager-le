@@ -1,4 +1,5 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
 /**
  * Compact native table values; never applied implicitly to pickers or authored content.
  *

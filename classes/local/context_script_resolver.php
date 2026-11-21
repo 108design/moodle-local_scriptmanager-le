@@ -1,4 +1,5 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
 /**
  * Resolves published managed scripts for permitted Moodle page contexts.
  *

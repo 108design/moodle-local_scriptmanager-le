@@ -1,4 +1,5 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
 /**
  * Native script entry point for Script Manager.
  *
@@ -35,7 +36,7 @@ header('Content-Type: application/javascript; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 header('Cache-Control: public, max-age=31536000, immutable');
 $identifier = json_encode($version->identifier, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
-echo "(function(){'use strict';const item={id:" . $identifier . ",run:function(context){\n";
+echo "require(['local_scriptmanager/script_runtime'],function(runtime){'use strict';runtime.register({id:" .
+    $identifier . ",run:function(context){\n";
 echo $version->code;
-echo "\n}};if(window.localScriptManagerRuntime){window.localScriptManagerRuntime.register(item);}" .
-    "else{(window.localScriptManagerQueue=window.localScriptManagerQueue||[]).push(item);}})();";
+echo "\n}});});";

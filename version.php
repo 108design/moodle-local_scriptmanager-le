@@ -1,4 +1,5 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
 /**
  * Version and dependency metadata for Script Manager.
  *
@@ -15,7 +16,7 @@
 // with this distribution. See LICENSE.md for the full terms.
 defined('MOODLE_INTERNAL') || die();
 $plugin->component = 'local_scriptmanager';
-$plugin->version = 2026010107;
+$plugin->version = 2026010111;
 $plugin->requires = 2024100700; // Moodle 4.5.
 $plugin->maturity = MATURITY_BETA;
-$plugin->release = '0.7.1-beta';
+$plugin->release = '0.7.5-beta';
