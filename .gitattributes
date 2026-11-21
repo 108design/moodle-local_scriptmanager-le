@@ -18,6 +18,8 @@
 "/amd/build/context_help_form.min.js.map" -export-ignore -export-subst
 "/amd/build/context_help_legacy.min.js" -export-ignore -export-subst
 "/amd/build/context_help_legacy.min.js.map" -export-ignore -export-subst
+"/amd/build/script_runtime.min.js" -export-ignore -export-subst
+"/amd/build/script_runtime.min.js.map" -export-ignore -export-subst
 "/amd/build/search_bar.min.js" -export-ignore -export-subst
 "/amd/build/search_bar.min.js.map" -export-ignore -export-subst
 "/amd/build/search_managers.min.js" -export-ignore -export-subst
@@ -36,6 +38,7 @@
 "/amd/src/context_help_53.js" -export-ignore -export-subst
 "/amd/src/context_help_form.js" -export-ignore -export-subst
 "/amd/src/context_help_legacy.js" -export-ignore -export-subst
+"/amd/src/script_runtime.js" -export-ignore -export-subst
 "/amd/src/search_bar.js" -export-ignore -export-subst
 "/amd/src/search_managers.js" -export-ignore -export-subst
 "/amd/src/table_actionbar.js" -export-ignore -export-subst
@@ -57,6 +60,7 @@
 "/classes/local/service" -export-ignore -export-subst
 "/classes/local/service/factory.php" -export-ignore -export-subst
 "/classes/local/update_guard.php" -export-ignore -export-subst
+"/classes/local/update_notice.php" -export-ignore -export-subst
 "/classes/output" -export-ignore -export-subst
 "/classes/output/context_help.php" -export-ignore -export-subst
 "/classes/output/script_revision_comparison.php" -export-ignore -export-subst
@@ -85,8 +89,6 @@
 "/editor-src/scriptmanager-source-editor.js" -export-ignore -export-subst
 "/editor-src/source-editor-core.js" -export-ignore -export-subst
 "/index.php" -export-ignore -export-subst
-"/js" -export-ignore -export-subst
-"/js/script_runtime.js" -export-ignore -export-subst
 "/lang" -export-ignore -export-subst
 "/lang/de" -export-ignore -export-subst
 "/lang/de/local_scriptmanager.php" -export-ignore -export-subst
@@ -98,6 +100,7 @@
 "/pix/helpbrand.svg" -export-ignore -export-subst
 "/release-guard-policy.json" -export-ignore -export-subst
 "/release-manifest.json" -export-ignore -export-subst
+"/release-metadata.php" -export-ignore -export-subst
 "/release-signature.txt" -export-ignore -export-subst
 "/script.php" -export-ignore -export-subst
 "/script_delete.php" -export-ignore -export-subst
@@ -124,4 +127,5 @@
 "/thirdparty/codemirror/README.md" -export-ignore -export-subst
 "/thirdpartylibs.xml" -export-ignore -export-subst
 "/update-guard.php" -export-ignore -export-subst
+"/update-notice.php" -export-ignore -export-subst
 "/version.php" -export-ignore -export-subst
