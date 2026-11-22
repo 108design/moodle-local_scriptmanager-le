@@ -2,7 +2,7 @@
   <img src="docs/branding/logo.svg" alt="Script Manager logo" width="125" height="125">
 </p>
 
-# Script Manager LE
+# Script Manager LE - Limited Beta Preview
 
 Manage JavaScript snippets for trusted Moodle administrators.
 
