@@ -16,7 +16,7 @@
 // with this distribution. See LICENSE.md for the full terms.
 defined('MOODLE_INTERNAL') || die();
 $plugin->component = 'local_scriptmanager';
-$plugin->version = 2026010111;
+$plugin->version = 2026010112;
 $plugin->requires = 2024100700; // Moodle 4.5.
 $plugin->maturity = MATURITY_BETA;
-$plugin->release = '0.7.5-beta';
+$plugin->release = '0.7.6-beta';
