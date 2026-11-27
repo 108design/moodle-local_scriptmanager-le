@@ -188,4 +188,11 @@ body.local-scriptmanager-help-legacy-drawers.local-scriptmanager-help-open .draw
     font-size: 1.5rem;
     line-height: 1;
 }
+.local-scriptmanager-context-help .local-scriptmanager-help-close > svg {
+    display: block;
+    flex: 0 0 auto;
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+}
 /* END GENERATED HELP PANEL CONTROLS */
